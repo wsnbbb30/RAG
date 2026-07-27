@@ -1,24 +1,23 @@
 package com.yizhaoqi.smartpai.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-/**
- * Elasticsearch存储的文档实体类
- * 包含文档内容和权限信息
- */
 @Data
 public class EsDocument {
 
-    private String id;             // 文档唯一标识
-    private String fileMd5;        // 文件指纹
-    private Integer chunkId;       // 文本分块序号
-    private String textContent;    // 文本内容
-    private float[] vector;        // 向量数据（768维）
-    private String modelVersion;   // 向量生成模型版本
-    private String userId;         // 上传用户ID
-    private String orgTag;         // 组织标签
-    private boolean isPublic;      // 是否公开
+    private String id;
+    private String fileMd5;
+    private Integer chunkId;
+    private String textContent;
+    private float[] vector;
+    private String modelVersion;
+    private String userId;
+    private String orgTag;
+
+    @JsonProperty("isPublic")
+    private boolean isPublic;
 
     /**
      * 默认构造函数，用于Jackson反序列化

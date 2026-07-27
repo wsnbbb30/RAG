@@ -1,6 +1,7 @@
 package com.yizhaoqi.smartpai.config;
 
 import co.elastic.clients.transport.endpoints.BooleanResponse;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -17,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.io.StringReader;
 
 @Component
+@ConditionalOnProperty(name = "elasticsearch.index.auto-init", havingValue = "true", matchIfMissing = true)
 public class EsIndexInitializer implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(EsIndexInitializer.class);

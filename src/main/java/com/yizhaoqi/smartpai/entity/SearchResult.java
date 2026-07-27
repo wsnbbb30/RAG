@@ -1,17 +1,20 @@
 package com.yizhaoqi.smartpai.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
 public class SearchResult {
-    private String fileMd5;    // 文件指纹
-    private Integer chunkId;   // 文本分块序号
-    private String textContent; // 文本内容
-    private Double score;      // 搜索得分
-    private String fileName;   // 原始文件名
-    private String userId;     // 上传用户ID
-    private String orgTag;     // 组织标签
-    private Boolean isPublic;  // 是否公开
+    private String fileMd5;
+    private Integer chunkId;
+    private String textContent;
+    private Double score;
+    private String fileName;
+    private String userId;
+    private String orgTag;
+
+    @JsonProperty("isPublic")
+    private Boolean isPublic;
 
     public SearchResult(String fileMd5, Integer chunkId, String textContent, Double score) {
         this(fileMd5, chunkId, textContent, score, null, null, false, null);

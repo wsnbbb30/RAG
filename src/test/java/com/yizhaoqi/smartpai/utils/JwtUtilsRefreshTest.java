@@ -2,6 +2,7 @@ package com.yizhaoqi.smartpai.utils;
 
 import com.yizhaoqi.smartpai.model.User;
 import com.yizhaoqi.smartpai.repository.UserRepository;
+import com.yizhaoqi.smartpai.service.TokenCacheService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,7 +14,8 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.lenient;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 /**
  * JWT Token刷新机制测试
@@ -24,18 +26,19 @@ public class JwtUtilsRefreshTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private TokenCacheService tokenCacheService;
+
     @InjectMocks
     private JwtUtils jwtUtils;
 
     private User testUser;
-    private String testSecretKey = "dGVzdC1zZWNyZXQta2V5LWZvci1qd3QtdG9rZW4tZ2VuZXJhdGlvbi1hbmQtdmVyaWZpY2F0aW9u"; // Base64编码
+    private String testSecretKey = "dGVzdC1zZWNyZXQta2V5LWZvci1qd3QtdG9rZW4tZ2VuZXJhdGlvbi1hbmQtdmVyaWZpY2F0aW9u";
 
     @BeforeEach
     void setUp() {
-        // 设置测试用的密钥
         ReflectionTestUtils.setField(jwtUtils, "secretKeyBase64", testSecretKey);
-        
-        // 创建测试用户
+
         testUser = new User();
         testUser.setId(1L);
         testUser.setUsername("testuser");
@@ -43,8 +46,10 @@ public class JwtUtilsRefreshTest {
         testUser.setOrgTags("org1,org2");
         testUser.setPrimaryOrg("org1");
 
-        // Mock用户仓库行为 (使用lenient模式避免不必要的stubbing警告)
         lenient().when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+        lenient().doNothing().when(tokenCacheService).cacheToken(anyString(), anyString(), anyString(), anyLong());
+        lenient().doNothing().when(tokenCacheService).cacheRefreshToken(anyString(), anyString(), any(), anyLong());
+        lenient().when(tokenCacheService.isTokenValid(anyString())).thenReturn(true);
     }
 
     @Test

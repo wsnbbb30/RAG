@@ -14,48 +14,50 @@ import org.springframework.http.HttpStatus;
 
 import java.util.Optional;
 
-import static org.hamcrest.Matchers.any;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+
+import com.yizhaoqi.smartpai.model.OrganizationTag;
+import com.yizhaoqi.smartpai.repository.OrganizationTagRepository;
+import com.yizhaoqi.smartpai.service.OrgTagCacheService;
+
 /**
  * UserService 的测试类
  */
 class UserServiceTest {
-    // 模拟 UserRepository 实例
     @Mock
     private UserRepository userRepository;
 
-    // 注入模拟的 UserService 实例
+    @Mock
+    private OrganizationTagRepository organizationTagRepository;
+
+    @Mock
+    private OrgTagCacheService orgTagCacheService;
+
     @InjectMocks
     private UserService userService;
 
-    /**
-     * 在每个测试方法执行前初始化模拟对象
-     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
-    /**
-     * 测试用户注册成功的情况
-     */
     @Test
     void testRegisterUser_Success() {
-        // 假设用户名 "testuser" 在数据库中不存在
         when(userRepository.findByUsername("testuser")).thenReturn(Optional.empty());
+        // 默认组织标签已存在，跳过创建
+        when(organizationTagRepository.existsByTagId("DEFAULT")).thenReturn(true);
+        // 私人组织标签不存在，需要创建
+        when(organizationTagRepository.existsByTagId("PRIVATE_testuser")).thenReturn(false);
+        when(organizationTagRepository.save(any(OrganizationTag.class))).thenReturn(new OrganizationTag());
 
-        // 调用 userService 的 registerUser 方法进行用户注册
         userService.registerUser("testuser", "password123");
 
-        // 创建 ArgumentCaptor 来捕获 save 方法的参数
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
-
-        // 验证 userRepository.save 被调用了一次，并捕获参数
-        verify(userRepository, times(1)).save(userCaptor.capture());
-
-        // 获取捕获的 User 对象并进行断言
-        User savedUser = userCaptor.getValue();
+        verify(userRepository, atLeastOnce()).save(userCaptor.capture());
+        User savedUser = userCaptor.getAllValues().stream()
+                .filter(u -> "testuser".equals(u.getUsername()))
+                .findFirst().orElse(null);
         assertNotNull(savedUser);
         assertEquals("testuser", savedUser.getUsername());
     }

@@ -54,11 +54,10 @@ public class SearchController {
             
             List<SearchResult> results;
             if (userId != null) {
-                // 如果有用户ID，使用带权限的搜索
                 results = hybridSearchService.searchWithPermission(query, userId, topK);
             } else {
-                // 如果没有用户ID，使用普通搜索（仅公开内容）
-                results = hybridSearchService.search(query, topK);
+                // 匿名用户仅搜索公开文档（userId=null 时 searchWithPermission 内部仅过滤 isPublic=true）
+                results = hybridSearchService.searchWithPermission(query, null, topK);
             }
             
             LogUtils.logUserOperation(userId != null ? userId : "anonymous", "HYBRID_SEARCH", 
