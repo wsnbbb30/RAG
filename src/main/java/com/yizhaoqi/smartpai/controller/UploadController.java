@@ -3,10 +3,12 @@ package com.yizhaoqi.smartpai.controller;
 import com.yizhaoqi.smartpai.config.KafkaConfig;
 import com.yizhaoqi.smartpai.model.FileProcessingTask;
 import com.yizhaoqi.smartpai.model.FileUpload;
+import com.yizhaoqi.smartpai.model.DocumentVersion;
 import com.yizhaoqi.smartpai.repository.FileUploadRepository;
 import com.yizhaoqi.smartpai.service.FileTypeValidationService;
 import com.yizhaoqi.smartpai.service.UploadService;
 import com.yizhaoqi.smartpai.service.UserService;
+import com.yizhaoqi.smartpai.service.ReportMetadataExtractor;
 import com.yizhaoqi.smartpai.utils.LogUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,6 +46,9 @@ public class UploadController {
     
     @Autowired
     private FileTypeValidationService fileTypeValidationService;
+
+    @Autowired
+    private ReportMetadataExtractor reportMetadataExtractor;
 
     public UploadController(UploadService uploadService, KafkaTemplate<String, Object> kafkaTemplate) {
         this.uploadService = uploadService;
@@ -277,6 +282,10 @@ public class UploadController {
             String objectUrl = uploadService.mergeChunks(request.fileMd5(), request.fileName(), userId);
             LogUtils.logFileOperation(userId, "MERGE", request.fileName(), request.fileMd5(), "SUCCESS");
 
+            // Version metadata must exist before publishing so every async
+            // processing stage has a stable document-version anchor.
+            DocumentVersion documentVersion = reportMetadataExtractor.extractAndCreate(fileUpload);
+
             // 发送任务到 Kafka，包含完整的权限信息
             LogUtils.logBusiness("MERGE_FILE", userId, "创建文件处理任务: fileMd5=%s, fileName=%s, fileType=%s, orgTag=%s, isPublic=%s", 
                     request.fileMd5(), request.fileName(), fileType, fileUpload.getOrgTag(), fileUpload.isPublic());
@@ -287,7 +296,8 @@ public class UploadController {
                     request.fileName(),
                     fileUpload.getUserId(),
                     fileUpload.getOrgTag(),
-                    fileUpload.isPublic()
+                    fileUpload.isPublic(),
+                    documentVersion.getId()
             );
             
             LogUtils.logBusiness("MERGE_FILE", userId, "发送文件处理任务到Kafka(事务): topic=%s, fileMd5=%s, fileName=%s", 
@@ -301,6 +311,7 @@ public class UploadController {
             // 构建数据对象
             Map<String, Object> data = new HashMap<>();
             data.put("object_url", objectUrl);
+            data.put("version_id", documentVersion.getId());
             
             // 构建统一响应格式
             Map<String, Object> response = new HashMap<>();
@@ -481,4 +492,3 @@ public class UploadController {
         }
     }
 }
-

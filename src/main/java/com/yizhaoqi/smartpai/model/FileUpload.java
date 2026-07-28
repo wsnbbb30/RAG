@@ -27,6 +27,14 @@ public class FileUpload {
     private String fileMd5;
 
     /**
+     * 关联的文档版本ID
+     * 文件完成合并后创建DocumentVersion时回填此字段
+     * 合并前为NULL
+     */
+    @Column(name = "version_id")
+    private Long versionId;
+
+    /**
      * 文件的原始名称
      * 用于记录上传时文件的名称
      */
@@ -78,5 +86,7 @@ public class FileUpload {
      */
     @UpdateTimestamp
     private LocalDateTime mergedAt;
+
+
 }
 

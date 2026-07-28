@@ -1,0 +1,70 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=MySQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  kafka:
+    enabled: false
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+
+elasticsearch:
+  index:
+    auto-init: false
+
+minio:
+  endpoint: http://localhost:9000
+  accessKey: test
+  secretKey: testtest
+  bucketName: test
+  publicUrl: http://localhost:9000
+
+jwt:
+  secret-key: dGVzdC1zZWNyZXQta2V5LWZvci1qd3QtdG9rZW4tZ2VuZXJhdGlvbi1hbmQtdmVyaWZpY2F0aW9u
+
+admin:
+  username: admin
+  password: admin
+  primary-org: default
+  org-tags: default,admin
+
+deepseek:
+  api:
+    url: https://api.deepseek.com/v1
+    model: deepseek-chat
+    key: test-key
+
+embedding:
+  api:
+    url: https://dashscope.aliyuncs.com/compatible-mode/v1
+    key: test-key
+    model: text-embedding-v4
+    batch-size: 10
+    dimension: 2048
+
+file:
+  parsing:
+    chunk-size: 512
+    buffer-size: 8192
+    max-memory-threshold: 0.8
+
+ai:
+  prompt:
+    rules: "test rules"
+    ref-start: "<<REF>>"
+    ref-end: "<<END>>"
+    no-result-text: "no result"
+  generation:
+    temperature: 0.3
+    max-tokens: 2000
+    top-p: 0.9
