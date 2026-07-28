@@ -9,7 +9,7 @@ import java.util.Optional;
  * MVP 阶段的确定性本地字典。它与提取器解耦，未来替换为带缓存的巨潮数据源时，
  * 不会改变文档/版本创建语义。
  */
-@Component
+@Component("localCompanyIdentityResolver")
 public class LocalCompanyIdentityResolver implements CompanyIdentityResolver {
 
     private static final Map<String, String> COMPANIES = Map.of(

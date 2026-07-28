@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.Normalizer;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -37,13 +38,21 @@ public class ReportMetadataExtractor {
     private static final String UNRESOLVED_COMPANY = "待人工确认";
     private static final String UNRESOLVED_STOCK_CODE = "UNRESOLVED";
 
+    /**
+     * 规范化后的文件名格式：主体 年份 报告类型 [附加说明]。
+     * 匹配前会将中英文标点、下划线、连字符、括号等统一为空格，
+     * 因此可兼容 600519_2023_annual_report.pdf、000002：2023 年度报告.pdf 等命名。
+     */
     private static final Pattern FILE_NAME_PATTERN = Pattern.compile(
-            "^(?<subject>[\\p{IsHan}A-Za-z0-9]+?)[_\\-\\s]*"
-                    + "(?<year>20\\d{2})[年_\\-\\s]*"
+            "^(?<subject>.+?)\\s+(?<year>20\\d{2})\\s*(?:年\\s*)?"
                     + "(?<type>年度报告|年报|中期报告|半年度报告|半年报|"
                     + "第一季度报告|一季报|第二季度报告|二季报|第三季度报告|三季报|"
-                    + "第四季度报告|四季报|季度报告|季报)(?:[_\\-\\s].*)?\\.pdf$",
-            Pattern.CASE_INSENSITIVE);
+                    + "第四季度报告|四季报|季度报告|季报|"
+                    + "annual(?:\\s+report)?|semi[\\s-]*annual(?:\\s+report)?|"
+                    + "half[\\s-]*year(?:\\s+report)?|interim(?:\\s+report)?|"
+                    + "q[1-4](?:\\s+report)?|quarter(?:ly)?(?:\\s+report)?)"
+                    + "(?:\\s+.*)?$",
+            Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
     private static final Pattern STOCK_CODE_PATTERN = Pattern.compile("^\\d{6}$");
     private static final Pattern YEAR_PATTERN = Pattern.compile("(20\\d{2})");
 
@@ -132,7 +141,7 @@ public class ReportMetadataExtractor {
     }
 
     ExtractionResult parseFileName(String fileName, String fileMd5) {
-        String normalizedName = fileName == null ? "" : fileName.trim();
+        String normalizedName = normalizeFileName(fileName);
         Matcher matcher = FILE_NAME_PATTERN.matcher(normalizedName);
         if (!matcher.matches()) {
             return unresolved(fileMd5, normalizedName, "文件名未匹配年报命名规则，需要人工确认");
@@ -190,13 +199,35 @@ public class ReportMetadataExtractor {
     }
 
     private Document.ReportType toReportType(String keyword) {
-        return switch (keyword) {
+        return switch (keyword.trim().toLowerCase(Locale.ROOT)) {
             case "年度报告", "年报" -> Document.ReportType.ANNUAL_REPORT;
-            case "中期报告", "半年度报告", "半年报" -> Document.ReportType.SEMI_ANNUAL_REPORT;
+            case "annual", "annual report" -> Document.ReportType.ANNUAL_REPORT;
+            case "中期报告", "半年度报告", "半年报", "semi annual", "semi-annual", "semi annual report",
+                    "semi-annual report", "half year", "half-year", "half year report", "half-year report",
+                    "interim", "interim report" -> Document.ReportType.SEMI_ANNUAL_REPORT;
             case "第一季度报告", "一季报", "第二季度报告", "二季报", "第三季度报告", "三季报",
-                    "第四季度报告", "四季报", "季度报告", "季报" -> Document.ReportType.QUARTERLY_REPORT;
+                    "第四季度报告", "四季报", "季度报告", "季报", "q1", "q1 report", "q2", "q2 report",
+                    "q3", "q3 report", "q4", "q4 report", "quarter", "quarter report", "quarterly",
+                    "quarterly report" -> Document.ReportType.QUARTERLY_REPORT;
             default -> null;
         };
+    }
+
+    /**
+     * 统一文件名中的 Unicode 形式和分隔符，使解析规则不依赖上传者的命名习惯。
+     * 不在这里猜测公司身份；无法匹配时仍按 LOW 置信度进入人工复核。
+     */
+    private String normalizeFileName(String fileName) {
+        if (fileName == null) {
+            return "";
+        }
+        String value = Normalizer.normalize(fileName.trim(), Normalizer.Form.NFKC)
+                .replaceFirst("(?i)\\.pdf\\s*$", "")
+                .replaceAll("[\\p{P}\\p{Z}]+", " ");
+        // 将 2023年、2023Annual 这类无分隔符写法拆开，统一为“主体 2023 报告类型”。
+        return value.replaceAll("(?<!\\d)(20\\d{2})(?!\\d)", " $1 ")
+                .replaceAll("\\s+", " ")
+                .trim();
     }
 
     private void validateUpload(FileUpload fileUpload) {

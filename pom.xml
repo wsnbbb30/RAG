@@ -191,6 +191,13 @@
             <artifactId>flyway-mysql</artifactId>
         </dependency>
 
+        <!-- PDF 布局解析：页码、坐标、字体信息、页图渲染 -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>3.0.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>

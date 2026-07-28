@@ -4,6 +4,8 @@ import com.yizhaoqi.smartpai.config.KafkaConfig;
 import com.yizhaoqi.smartpai.model.FileProcessingTask;
 import com.yizhaoqi.smartpai.service.ParseService;
 import com.yizhaoqi.smartpai.service.VectorizationService;
+import com.yizhaoqi.smartpai.service.VersionedDocumentParseService;
+import com.yizhaoqi.smartpai.config.DocumentParserProperties;
 import io.minio.MinioClient;
 import io.minio.errors.*;
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +25,19 @@ public class FileProcessingConsumer {
 
     private final ParseService parseService;
     private final VectorizationService vectorizationService;
+    private final VersionedDocumentParseService versionedDocumentParseService;
+    private final DocumentParserProperties documentParserProperties;
     @Autowired
     private KafkaConfig kafkaConfig;
 
 
-    public FileProcessingConsumer(ParseService parseService, VectorizationService vectorizationService) {
+    public FileProcessingConsumer(ParseService parseService, VectorizationService vectorizationService,
+                                  VersionedDocumentParseService versionedDocumentParseService,
+                                  DocumentParserProperties documentParserProperties) {
         this.parseService = parseService;
         this.vectorizationService = vectorizationService;
+        this.versionedDocumentParseService = versionedDocumentParseService;
+        this.documentParserProperties = documentParserProperties;
     }
 
     @KafkaListener(topics = "#{kafkaConfig.getFileProcessingTopic()}", groupId = "#{kafkaConfig.getFileProcessingGroupId()}")
@@ -53,6 +61,13 @@ public class FileProcessingConsumer {
             }
 
             // 解析文件
+            if (shouldUseVersionedPdfPipeline(task)) {
+                versionedDocumentParseService.parse(task.getVersionId(), task.getFileName(), "application/pdf", fileStream);
+                log.info("页级解析完成，versionId={}, fileMd5={}", task.getVersionId(), task.getFileMd5());
+                // S1-02 尚未产生 DocumentChunk，不能调用旧向量化服务。
+                return;
+            }
+
             parseService.parseAndSave(task.getFileMd5(), fileStream, 
                     task.getUserId(), task.getOrgTag(), task.isPublic());
             log.info("文件解析完成，fileMd5: {}", task.getFileMd5());
@@ -75,6 +90,14 @@ public class FileProcessingConsumer {
                 }
             }
         }
+    }
+
+    /** 只有带版本锚点的 PDF 进入新页级解析链路。 */
+    private boolean shouldUseVersionedPdfPipeline(FileProcessingTask task) {
+        return documentParserProperties.isEnabled()
+                && task.getVersionId() != null
+                && task.getFileName() != null
+                && task.getFileName().toLowerCase(java.util.Locale.ROOT).endsWith(".pdf");
     }
 
     /**

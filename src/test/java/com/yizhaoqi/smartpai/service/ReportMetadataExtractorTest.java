@@ -11,8 +11,12 @@ import com.yizhaoqi.smartpai.repository.ReportMetadataAuditRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -98,6 +102,35 @@ class ReportMetadataExtractorTest {
         assertEquals("123456", result.stockCode());
         assertEquals("待人工确认", result.companyName());
         assertEquals(FinancialReportMetadata.Confidence.LOW, result.confidence());
+    }
+
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("supportedReportFileNames")
+    void parsesEnglishReportNamesAndPunctuation(String fileName, String expectedStockCode,
+                                                Document.ReportType expectedReportType, int expectedYear,
+                                                FinancialReportMetadata.Confidence expectedConfidence) {
+        ReportMetadataExtractor.ExtractionResult result = extractor.parseFileName(
+                fileName, "fedcba9876543210fedcba9876543210");
+
+        assertEquals(expectedStockCode, result.stockCode());
+        assertEquals(expectedReportType, result.reportType());
+        assertEquals(expectedYear, result.fiscalYear());
+        assertEquals(expectedConfidence, result.confidence());
+    }
+
+    private static Stream<Arguments> supportedReportFileNames() {
+        return Stream.of(
+                Arguments.of("600519_2023_annual_report.pdf", "600519", Document.ReportType.ANNUAL_REPORT,
+                        2023, FinancialReportMetadata.Confidence.MEDIUM),
+                Arguments.of("000002-2023-Annual Report Summary.PDF", "000002", Document.ReportType.ANNUAL_REPORT,
+                        2023, FinancialReportMetadata.Confidence.MEDIUM),
+                Arguments.of("600519（2023）Annual-Report.pdf", "600519", Document.ReportType.ANNUAL_REPORT,
+                        2023, FinancialReportMetadata.Confidence.MEDIUM),
+                Arguments.of("000002：2023 年度报告.pdf", "000002", Document.ReportType.ANNUAL_REPORT,
+                        2023, FinancialReportMetadata.Confidence.MEDIUM),
+                Arguments.of("东方精工：2026年半年度报告.pdf", "UNRESOLVED", Document.ReportType.SEMI_ANNUAL_REPORT,
+                        2026, FinancialReportMetadata.Confidence.LOW)
+        );
     }
 
     private FileUpload upload(String fileName, String md5) {

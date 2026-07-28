@@ -78,6 +78,19 @@ file:
     buffer-size: 8192
     max-memory-threshold: 0.8
 
+document:
+  parser:
+    enabled: true
+    pdf-layout-version: pdf-layout-v2
+    ocr-text-threshold: 30
+
+company-identity:
+  cninfo:
+    stock-list-url: https://www.cninfo.com.cn/new/data/szse_stock.json
+    request-timeout: 3s
+    cache-ttl: 24h
+    failure-retry-interval: 1m
+
 elasticsearch:
   host: localhost
   port: 9200
