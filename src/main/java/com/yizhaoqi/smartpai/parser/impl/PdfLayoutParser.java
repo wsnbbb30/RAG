@@ -8,6 +8,8 @@ import com.yizhaoqi.smartpai.parser.ParseRequest;
 import com.yizhaoqi.smartpai.parser.ParseResult;
 import com.yizhaoqi.smartpai.parser.ParsedElement;
 import com.yizhaoqi.smartpai.parser.ParsedPage;
+import com.yizhaoqi.smartpai.parser.ParsedTable;
+import com.yizhaoqi.smartpai.parser.ParsedTableCell;
 import com.yizhaoqi.smartpai.parser.ParserType;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -68,12 +70,14 @@ public class PdfLayoutParser implements DocumentParser {
                 PDPage page = document.getPage(index);
                 List<LayoutLine> lines = extractPageLines(document, index + 1);
                 List<ParsedElement> elements = toParagraphElements(lines);
+                // 普通文本元素始终保留；表格结构是额外产物，不能以“识别出表格”为由丢失全文检索文本。
+                List<ParsedTable> tables = detectTables(lines, index + 1);
                 int textCharCount = lines.stream().mapToInt(line -> line.text().length()).sum();
                 pages.add(new ParsedPage(index + 1,
                         BigDecimal.valueOf(page.getMediaBox().getWidth()),
                         BigDecimal.valueOf(page.getMediaBox().getHeight()),
                         page.getRotation(), textCharCount,
-                        textCharCount < properties.getOcrTextThreshold(), elements));
+                        textCharCount < properties.getOcrTextThreshold(), elements, tables));
             }
             return new ParseResult(type(), properties.getPdfLayoutVersion(), pages);
         }
@@ -154,6 +158,89 @@ public class PdfLayoutParser implements DocumentParser {
         return BigDecimal.valueOf(value).setScale(2, java.math.RoundingMode.HALF_UP);
     }
 
+    /**
+     * 数字 PDF 的轻量表格检测。
+     *
+     * <p>PDF 本身通常没有“表格”语义。本实现使用可重复的排版启发式：连续两行及以上、
+     * 每行至少两个由制表符/连续空白分隔的字段，或至少两个数值字段。它只覆盖可复制文本的
+     * 主路径；扫描件页面仍由 ocrRecommended 标记，后续 OCR Provider 可替换此实现。</p>
+     * 
+     * 判断是否为表格的原理：一行里有没有多个字段被空格/制表符分隔？有没有多行？有没有数字？
+     */
+    private List<ParsedTable> detectTables(List<LayoutLine> lines, int pageNo) {
+        List<ParsedTable> tables = new ArrayList<>();
+        List<LayoutLine> group = new ArrayList<>();
+        for (LayoutLine line : lines) {
+            if (isTableLike(line)) {
+                group.add(line);
+            } else {
+                appendTable(tables, group, lines, pageNo);
+                group.clear();
+            }
+        }
+        appendTable(tables, group, lines, pageNo);
+        return tables;
+    }
+
+    private void appendTable(List<ParsedTable> output, List<LayoutLine> lines, List<LayoutLine> allLines, int pageNo) {
+        if (lines.size() < 2) return;
+        List<ParsedTableCell> cells = new ArrayList<>();
+        for (int row = 0; row < lines.size(); row++) {
+            List<CellFragment> fragments = splitCells(lines.get(row));
+            for (int column = 0; column < fragments.size(); column++) {
+                CellFragment fragment = fragments.get(column);
+                cells.add(new ParsedTableCell(pageNo, row, column, 1, 1, fragment.text(), fragment.box(), 0.75D));
+            }
+        }
+        LayoutLine first = lines.get(0);
+        String title = findTitle(allLines, first);
+        String unit = findUnit(allLines, first);
+        BoundingBox box = new BoundingBox(decimal(lines.stream().map(LayoutLine::x0).min(Float::compare).orElse(0F)),
+                decimal(lines.stream().map(LayoutLine::y0).min(Float::compare).orElse(0F)),
+                decimal(lines.stream().map(LayoutLine::x1).max(Float::compare).orElse(0F)),
+                decimal(lines.stream().map(LayoutLine::y1).max(Float::compare).orElse(0F)));
+        output.add(new ParsedTable(pageNo, pageNo, title, unit, box, 0.75D, cells));
+    }
+
+    private boolean isTableLike(LayoutLine line) {
+        List<CellFragment> cells = splitCells(line);
+        if (cells.size() < 2) return false;
+        long numericCount = cells.stream().filter(cell -> cell.text().matches(".*[（(]?-?[0-9][0-9,，.]*%?[)）]?.*")).count();
+        // 标题行可能没有数字，但必须有明显列间距；数值行可接受较紧凑的排版。
+        return line.text().matches(".*(?:\\t| {2,}).*") || numericCount >= 2;
+    }
+
+    /** 通过制表符或连续空白切分视觉列；单个空格仍视作单元格内文字的一部分。 */
+    private List<CellFragment> splitCells(LayoutLine line) {
+        String[] parts = line.text().trim().split("(?:\\t+| {2,})");
+        List<CellFragment> result = new ArrayList<>();
+        int cursor = 0;
+        for (String part : parts) {
+            String text = part.trim();
+            if (text.isEmpty()) continue;
+            int start = Math.max(cursor, line.text().indexOf(part, cursor));
+            int end = start + part.length();
+            cursor = end;
+            float width = Math.max(1F, line.x1() - line.x0());
+            float left = line.x0() + width * start / Math.max(1, line.text().length());
+            float right = line.x0() + width * end / Math.max(1, line.text().length());
+            result.add(new CellFragment(text, new BoundingBox(decimal(left), decimal(line.y0()), decimal(right), decimal(line.y1()))));
+        }
+        return result;
+    }
+
+    private String findTitle(List<LayoutLine> allLines, LayoutLine first) {
+        return allLines.stream().filter(line -> line.y1() <= first.y0()).filter(line -> line.text().length() <= 100)
+                .filter(line -> line.text().matches(".*(表|资产负债|利润|现金流).*")).reduce((left, right) -> right)
+                .map(LayoutLine::text).orElse(null);
+    }
+
+    private String findUnit(List<LayoutLine> allLines, LayoutLine first) {
+        return allLines.stream().filter(line -> line.y1() <= first.y0())
+                .filter(line -> line.text().matches(".*(单位|元|万元|亿元|人民币|RMB).*"))
+                .reduce((left, right) -> right).map(LayoutLine::text).orElse(null);
+    }
+
     /** PDFBox 回调适配器：不丢弃 TextPosition，计算每行的真实坐标范围。 */
     private static final class PositionAwareTextStripper extends PDFTextStripper {
         private final List<LayoutLine> lines = new ArrayList<>();
@@ -164,7 +251,8 @@ public class PdfLayoutParser implements DocumentParser {
 
         @Override
         protected void writeString(String text, List<TextPosition> positions) {
-            String normalized = text == null ? "" : text.replaceAll("[\\t ]+", " ").trim();
+            // 保留连续空格和制表符，它们是数字 PDF 中少数可用于恢复列结构的版式线索。
+            String normalized = text == null ? "" : text.replace('\u00a0', ' ').trim();
             if (normalized.isBlank() || positions == null || positions.isEmpty()) {
                 return;
             }
@@ -191,4 +279,5 @@ public class PdfLayoutParser implements DocumentParser {
 
     /** 页内视觉行；坐标来自 PDFBox 的方向校正坐标系，单位为 point。 */
     private record LayoutLine(String text, float x0, float y0, float x1, float y1, float height) { }
+    private record CellFragment(String text, BoundingBox box) { }
 }

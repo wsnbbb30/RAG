@@ -117,6 +117,31 @@ elasticsearch:
     auto-init: true
     vector-dimension: 2048
 
+# S2-01：每路召回独立配置；事实召回等 S3 财务事实表落地后再开启。
+retrieval:
+  bm25-enabled: true
+  vector-enabled: true
+  fact-enabled: false
+  recall-multiplier: 3
+  route-timeout-ms: 3000
+  rrf-k: 60
+
+# S2-03：默认关闭。完成 S2-05 对照评测确认收益后，再配置 URL/KEY 并开启。
+rerank:
+  enabled: false
+  model: rerank-v1
+  candidate-size: 50
+  timeout-ms: 2500
+  failure-threshold: 3
+  circuit-open-ms: 60000
+
+# S2-04：冻结证据时的上下文预算。token 为保守估算值，防止超出生成模型上下文窗口。
+rag:
+  evidence:
+    max-context-tokens: 3200
+    min-evidence-count: 1
+    min-evidence-characters: 20
+
 logging:
   level:
     org.springframework.web: DEBUG

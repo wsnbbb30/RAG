@@ -4,6 +4,7 @@ import com.yizhaoqi.smartpai.model.*;
 import com.yizhaoqi.smartpai.parser.*;
 import com.yizhaoqi.smartpai.repository.*;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
@@ -12,6 +13,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * 解析应用服务：负责状态、幂等、实体映射和持久化；不包含 PDF 解析细节。
@@ -34,13 +37,27 @@ public class VersionedDocumentParseService {
     private final DocumentElementRepository elementRepository;
     private final ParserRegistry parserRegistry;
     private final ParseArtifactStorage artifactStorage;
+    private final TableNormalizer tableNormalizer;
 
+    /** S1-02 兼容构造器，供已有单元测试和旧调用方使用。 */
     public VersionedDocumentParseService(DocumentVersionRepository versionRepository,
                                          DocumentPageRepository pageRepository, DocumentElementRepository elementRepository,
                                          ParserRegistry parserRegistry, ParseArtifactStorage artifactStorage) {
+        this(versionRepository, pageRepository, elementRepository, parserRegistry, artifactStorage, null);
+    }
+
+    /**
+     * S3-01 主构造器。表格规范化位于应用服务层，解析器仍保持无数据库依赖。
+     */
+    @Autowired
+    public VersionedDocumentParseService(DocumentVersionRepository versionRepository,
+                                         DocumentPageRepository pageRepository, DocumentElementRepository elementRepository,
+                                         ParserRegistry parserRegistry, ParseArtifactStorage artifactStorage,
+                                         TableNormalizer tableNormalizer) {
         this.versionRepository = versionRepository; this.pageRepository = pageRepository;
         this.elementRepository = elementRepository; this.parserRegistry = parserRegistry;
         this.artifactStorage = artifactStorage;
+        this.tableNormalizer = tableNormalizer;
     }
 
     /**
@@ -87,6 +104,7 @@ public class VersionedDocumentParseService {
         if (!oldPageIds.isEmpty()) elementRepository.deleteByPageIdIn(oldPageIds);
         pageRepository.deleteByVersionId(versionId);
 
+        Map<Integer, DocumentPage> pageByNo = new LinkedHashMap<>();
         for (ParsedPage parsedPage : result.pages()) {
             DocumentPage page = new DocumentPage();
             page.setVersionId(versionId); page.setPageNo(parsedPage.pageNo());
@@ -95,9 +113,15 @@ public class VersionedDocumentParseService {
             page.setOcrStatus(parsedPage.ocrRecommended() ? DocumentPage.OcrStatus.PENDING : DocumentPage.OcrStatus.NOT_REQUIRED);
             page.setParserVersion(result.parserVersion());
             page = pageRepository.save(page);
+            pageByNo.put(parsedPage.pageNo(), page);
             List<DocumentElement> elements = new ArrayList<>();
             for (ParsedElement item : parsedPage.elements()) elements.add(toEntity(page.getId(), item));
             elementRepository.saveAll(elements);
+        }
+        // 表格、单元格与普通段落分库存储：避免把结构化数字压扁成不可复核的长文本。
+        // 兼容构造器下 tableNormalizer 为 null，不影响 S1 的既有解析测试。
+        if (tableNormalizer != null) {
+            artifactStorage.saveTables(versionId, tableNormalizer.replaceTables(versionId, result.pages(), pageByNo));
         }
         artifactStorage.saveManifest(versionId, result);
         version.setPageCount(result.pages().size());
