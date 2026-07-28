@@ -83,6 +83,13 @@ document:
     enabled: true
     pdf-layout-version: pdf-layout-v2
     ocr-text-threshold: 30
+  chunking:
+    enabled: true
+    chunker-version: structure-aware-v1
+    min-tokens: 350
+    max-tokens: 600
+    overlap-tokens: 80
+    oversized-element-tokens: 800
 
 company-identity:
   cninfo:
