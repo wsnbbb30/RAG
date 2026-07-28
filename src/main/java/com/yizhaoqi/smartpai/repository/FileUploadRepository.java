@@ -15,6 +15,9 @@ public interface FileUploadRepository extends JpaRepository<FileUpload, Long> {
     Optional<FileUpload> findByFileMd5(String fileMd5);
     
     Optional<FileUpload> findByFileMd5AndUserId(String fileMd5, String userId);
+
+    /** 一个版本可能保留多次上传记录；索引时取最新完成记录作为 ACL 快照来源。 */
+    Optional<FileUpload> findFirstByVersionIdOrderByIdDesc(Long versionId);
     
     Optional<FileUpload> findByFileNameAndIsPublicTrue(String fileName);
     

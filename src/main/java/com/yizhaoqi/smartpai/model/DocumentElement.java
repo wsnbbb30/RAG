@@ -28,7 +28,8 @@ public class DocumentElement {
 
     //文本内容，可存储长文本
     @Lob
-    @Column(name = "text_content")
+    // V3 使用 LONGTEXT 保存整段页面文本；显式声明可避免 @Lob 被 MySQL 方言推断为 TINYTEXT。
+    @Column(name = "text_content", columnDefinition = "LONGTEXT")
     private String textContent;
 
     //阅读顺序，即在同一页内的序号
@@ -42,7 +43,8 @@ public class DocumentElement {
     @Column(precision = 10, scale = 2) private BigDecimal y1;
 
     //标题级别
-    @Column(name = "heading_level")
+    // 对齐 V3 migration 的 TINYINT；标题层级仅取很小的正整数，无需使用 INT。
+    @Column(name = "heading_level", columnDefinition = "TINYINT")
     private Integer headingLevel;
 
     //表格引用标识
@@ -53,7 +55,8 @@ public class DocumentElement {
     @Column(nullable = false, precision = 5, scale = 4)
     private BigDecimal confidence = BigDecimal.ONE;
 
-    @Column(name = "source_text_hash", length = 64)
+    // 对齐 V3 migration 的 CHAR(64)，存储固定长度的 SHA-256 十六进制摘要。
+    @Column(name = "source_text_hash", length = 64, columnDefinition = "CHAR(64)")
     private String sourceTextHash;
 
     @CreationTimestamp

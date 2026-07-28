@@ -2,6 +2,10 @@ server:
   port: 8081
 
 spring:
+  # 本地开发时从项目根目录的 .env 加载敏感配置。
+  # 该文件采用 KEY=VALUE 格式，且必须被 Git 忽略，生产环境应改用部署平台的环境变量或密钥管理服务。
+  config:
+    import: optional:file:./.env[.properties]
   datasource:
     url: jdbc:mysql://localhost:3306/PaiSmart?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: ${DB_USERNAME}
@@ -18,6 +22,8 @@ spring:
     redis:
       host: localhost
       port: 6379
+      # 本地 .env 的 Redis 密码；未配置密码的环境可通过默认空值正常启动。
+      password: ${REDIS_PASSWORD:}
   servlet:
     multipart:
       enabled: true
@@ -106,6 +112,10 @@ elasticsearch:
   password: ${ELASTIC_PASSWORD}
   index:
     auto-init: true
+  versioned-index:
+    name: rag_document_chunks_v1
+    auto-init: true
+    vector-dimension: 2048
 
 logging:
   level:
@@ -123,9 +133,10 @@ log4j:
 
 deepseek:
   api:
-    url: https://api.deepseek.com/v1
+    # DeepSeek 用于 RAG 最终回答生成；其接口为 OpenAI 兼容的 Chat Completions 接口。
+    url: https://api.deepseek.com
     model: deepseek-chat
-    key: ${DEEPSEEK_API_KEY:}
+    key: ${DEEPSEEK_API_KEY}
 
 embedding:
   api:

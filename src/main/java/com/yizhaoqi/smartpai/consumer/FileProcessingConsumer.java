@@ -6,6 +6,7 @@ import com.yizhaoqi.smartpai.service.ParseService;
 import com.yizhaoqi.smartpai.service.VectorizationService;
 import com.yizhaoqi.smartpai.service.VersionedDocumentParseService;
 import com.yizhaoqi.smartpai.service.VersionedDocumentChunkService;
+import com.yizhaoqi.smartpai.service.VersionedDocumentIndexService;
 import com.yizhaoqi.smartpai.config.DocumentParserProperties;
 import io.minio.MinioClient;
 import io.minio.errors.*;
@@ -28,6 +29,7 @@ public class FileProcessingConsumer {
     private final VectorizationService vectorizationService;
     private final VersionedDocumentParseService versionedDocumentParseService;
     private final VersionedDocumentChunkService versionedDocumentChunkService;
+    private final VersionedDocumentIndexService versionedDocumentIndexService;
     private final DocumentParserProperties documentParserProperties;
     @Autowired
     private KafkaConfig kafkaConfig;
@@ -36,11 +38,13 @@ public class FileProcessingConsumer {
     public FileProcessingConsumer(ParseService parseService, VectorizationService vectorizationService,
                                   VersionedDocumentParseService versionedDocumentParseService,
                                   VersionedDocumentChunkService versionedDocumentChunkService,
+                                  VersionedDocumentIndexService versionedDocumentIndexService,
                                   DocumentParserProperties documentParserProperties) {
         this.parseService = parseService;
         this.vectorizationService = vectorizationService;
         this.versionedDocumentParseService = versionedDocumentParseService;
         this.versionedDocumentChunkService = versionedDocumentChunkService;
+        this.versionedDocumentIndexService = versionedDocumentIndexService;
         this.documentParserProperties = documentParserProperties;
     }
 
@@ -68,8 +72,9 @@ public class FileProcessingConsumer {
             if (shouldUseVersionedPdfPipeline(task)) {
                 versionedDocumentParseService.parse(task.getVersionId(), task.getFileName(), "application/pdf", fileStream);
                 versionedDocumentChunkService.chunk(task.getVersionId());
-                log.info("页级解析与结构化切块完成，versionId={}, fileMd5={}", task.getVersionId(), task.getFileMd5());
-                // S1-04 前不能调用旧向量化服务，避免同一 PDF 写入两套不兼容的索引。
+                versionedDocumentIndexService.index(task.getVersionId());
+                log.info("页级解析、结构化切块与版本化索引完成，versionId={}, fileMd5={}", task.getVersionId(), task.getFileMd5());
+                // 新链路使用独立物理索引，禁止再调用旧 VectorizationService 产生双索引。
                 return;
             }
 

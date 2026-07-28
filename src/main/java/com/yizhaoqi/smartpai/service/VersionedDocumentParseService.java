@@ -67,8 +67,14 @@ public class VersionedDocumentParseService {
     public void parse(Long versionId, String fileName, String contentType, InputStream inputStream) throws Exception {
         DocumentVersion version = versionRepository.findById(versionId)
                 .orElseThrow(() -> new IllegalArgumentException("文档版本不存在: " + versionId));
+        // Kafka 可能因后续切块、向量化或索引阶段失败而重投同一条任务。
+        // 只要已越过解析阶段（CHUNKED/INDEXED），页面与元素即为可信快照，绝不能再次插入，
+        // 否则会触发 (version_id, page_no) 唯一约束并让重试永远失败。
         if (version.getStatus() == DocumentVersion.ProcessingStatus.PARSED
-                || version.getStatus() == DocumentVersion.ProcessingStatus.INDEXED) return;
+                || version.getStatus() == DocumentVersion.ProcessingStatus.CHUNKED
+                || version.getStatus() == DocumentVersion.ProcessingStatus.INDEXED) {
+            return;
+        }
 
         version.setStatus(DocumentVersion.ProcessingStatus.PARSING);
         versionRepository.save(version);

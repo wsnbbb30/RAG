@@ -38,7 +38,9 @@ public class DocumentChunk {
     @Column(name = "token_count", nullable = false)
     private Integer tokenCount;
 
-    @Column(name = "content_hash", nullable = false, length = 64)
+    // 与 V4 migration 中的 CHAR(64) 保持完全一致：SHA-256 的十六进制摘要固定为 64 个字符。
+    // 仅设置 length 会被 Hibernate 推断为 VARCHAR(64)，从而在 ddl-auto=validate 时启动失败。
+    @Column(name = "content_hash", nullable = false, length = 64, columnDefinition = "CHAR(64)")
     private String contentHash;
 
     @Column(name = "page_start", nullable = false)

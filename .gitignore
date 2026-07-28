@@ -26,8 +26,7 @@ replay_pid*
 .DS_Store
 *.local
 .env
-.env.*
-!.env.example
+.env
 .idea/
 *.log
 /target

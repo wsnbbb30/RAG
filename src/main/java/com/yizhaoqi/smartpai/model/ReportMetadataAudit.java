@@ -27,15 +27,18 @@ public class ReportMetadataAudit {
     private String operatorId;
 
     @Lob
-    @Column(name = "before_snapshot")
+    // 与 V2 migration 的 TEXT 对齐，保存 JSON 格式的元数据快照。
+    @Column(name = "before_snapshot", columnDefinition = "TEXT")
     private String beforeSnapshot;
 
     @Lob
-    @Column(name = "after_snapshot", nullable = false)
+    // 与 V2 migration 的 TEXT 对齐，保存 JSON 格式的元数据快照。
+    @Column(name = "after_snapshot", nullable = false, columnDefinition = "TEXT")
     private String afterSnapshot;
 
     @Lob
-    @Column(name = "review_note")
+    // 与 V2 migration 的 TEXT 对齐，避免 @Lob 在 MySQL 下被推断为 TINYTEXT。
+    @Column(name = "review_note", columnDefinition = "TEXT")
     private String reviewNote;
 
     @CreationTimestamp
