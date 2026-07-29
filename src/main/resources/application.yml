@@ -121,7 +121,7 @@ elasticsearch:
 retrieval:
   bm25-enabled: true
   vector-enabled: true
-  fact-enabled: false
+  fact-enabled: true
   recall-multiplier: 3
   route-timeout-ms: 3000
   rrf-k: 60

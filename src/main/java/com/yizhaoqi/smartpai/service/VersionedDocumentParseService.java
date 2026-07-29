@@ -38,12 +38,13 @@ public class VersionedDocumentParseService {
     private final ParserRegistry parserRegistry;
     private final ParseArtifactStorage artifactStorage;
     private final TableNormalizer tableNormalizer;
+    private final FactExtractor factExtractor;
 
     /** S1-02 兼容构造器，供已有单元测试和旧调用方使用。 */
     public VersionedDocumentParseService(DocumentVersionRepository versionRepository,
                                          DocumentPageRepository pageRepository, DocumentElementRepository elementRepository,
                                          ParserRegistry parserRegistry, ParseArtifactStorage artifactStorage) {
-        this(versionRepository, pageRepository, elementRepository, parserRegistry, artifactStorage, null);
+        this(versionRepository, pageRepository, elementRepository, parserRegistry, artifactStorage, null, null);
     }
 
     /**
@@ -53,11 +54,12 @@ public class VersionedDocumentParseService {
     public VersionedDocumentParseService(DocumentVersionRepository versionRepository,
                                          DocumentPageRepository pageRepository, DocumentElementRepository elementRepository,
                                          ParserRegistry parserRegistry, ParseArtifactStorage artifactStorage,
-                                         TableNormalizer tableNormalizer) {
+                                         TableNormalizer tableNormalizer, FactExtractor factExtractor) {
         this.versionRepository = versionRepository; this.pageRepository = pageRepository;
         this.elementRepository = elementRepository; this.parserRegistry = parserRegistry;
         this.artifactStorage = artifactStorage;
         this.tableNormalizer = tableNormalizer;
+        this.factExtractor = factExtractor;
     }
 
     /**
@@ -122,6 +124,8 @@ public class VersionedDocumentParseService {
         // 兼容构造器下 tableNormalizer 为 null，不影响 S1 的既有解析测试。
         if (tableNormalizer != null) {
             artifactStorage.saveTables(versionId, tableNormalizer.replaceTables(versionId, result.pages(), pageByNo));
+            // 事实抽取只读取已落库的表格和单元格；与 PDF 解析器隔离，允许字典升级后单独重跑。
+            if (factExtractor != null) factExtractor.replaceFacts(versionId);
         }
         artifactStorage.saveManifest(versionId, result);
         version.setPageCount(result.pages().size());
