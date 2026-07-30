@@ -4,6 +4,7 @@ import com.yizhaoqi.smartpai.eval.model.EvalRetrievalResult;
 import com.yizhaoqi.smartpai.eval.model.EvaluationCase;
 import com.yizhaoqi.smartpai.eval.model.GroundTruthFact;
 import com.yizhaoqi.smartpai.retrieval.QueryFilter;
+import com.yizhaoqi.smartpai.service.MetricDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +93,7 @@ public class RetrievalEvaluator {
         List<GroundTruthFact> expected = evalCase.expectedFacts();
         int totalFacts = expected.size();
 
-        List<GroundTruthFact> computed = indicatorComputer.compute(evalCase.task(), candidateContents);
+        List<GroundTruthFact> computed = indicatorComputer.compute(evalCase.task(), candidateContents, evalCase.tableContext());
         if (computed.isEmpty()) {
             return new EvalRetrievalResult(evalCase.taskId(), evalCase.taskType(), evalCase.task(),
                     false, 0.0, 0.0, 0.0, totalFacts, 0,
@@ -122,14 +123,14 @@ public class RetrievalEvaluator {
                 candidateContents, failureReason);
     }
 
-    /** 在 LLM 计算结果中查找匹配的指标，使用数值容差比对。 */
+    /** 在 LLM 计算结果中查找匹配的指标，使用 normalize 精确匹配 + 数值容差比对。 */
     private boolean findIndicatorMatch(GroundTruthFact expectedFact, List<GroundTruthFact> computed) {
-        String expectedMetric = expectedFact.metricName();
+        String expectedNormalized = MetricDictionary.normalize(expectedFact.metricName());
         Map<String, String> expectedValues = expectedFact.yearValues();
 
         for (GroundTruthFact computedFact : computed) {
-            if (!computedFact.metricName().contains(expectedMetric)
-                    && !expectedMetric.contains(computedFact.metricName())) {
+            String computedNormalized = MetricDictionary.normalize(computedFact.metricName());
+            if (!expectedNormalized.equals(computedNormalized)) {
                 continue;
             }
 

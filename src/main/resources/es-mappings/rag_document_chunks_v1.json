@@ -1,0 +1,36 @@
+{
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "id": { "type": "keyword" },
+      "versionId": { "type": "long" },
+      "documentId": { "type": "keyword" },
+      "chunkId": { "type": "long" },
+      "chunkNo": { "type": "integer" },
+      "chunkType": { "type": "keyword" },
+      "parentChunkId": { "type": "long" },
+      "content": { "type": "text", "analyzer": "ik_max_word", "search_analyzer": "ik_smart" },
+      "contentHash": { "type": "keyword" },
+      "tokenCount": { "type": "integer" },
+      "pageStart": { "type": "integer" },
+      "pageEnd": { "type": "integer" },
+      "elementIds": { "type": "long" },
+      "parserVersion": { "type": "keyword" },
+      "chunkerVersion": { "type": "keyword" },
+      "embedding": {
+        "properties": {
+          "model": { "type": "keyword" },
+          "dimension": { "type": "integer" },
+          "tokenizerId": { "type": "keyword" }
+        }
+      },
+      "vector": { "type": "dense_vector", "dims": 2048, "index": true, "similarity": "cosine" },
+      "ownerUserId": { "type": "keyword" },
+      "orgTag": { "type": "keyword" },
+      "isPublic": { "type": "boolean" },
+      "stockCode": { "type": "keyword" },
+      "fiscalYear": { "type": "integer" },
+      "reportType": { "type": "keyword" }
+    }
+  }
+}
