@@ -1,0 +1,1012 @@
+{
+  "runId" : "e2ab640d",
+  "timestamp" : 1785326960.327147000,
+  "totalCases" : 130,
+  "passedCases" : 65,
+  "skippedCases" : 10,
+  "avgRecallAt5" : 0.36484375,
+  "avgRecallAt10" : 0.44453125,
+  "avgMrr" : 0.7656944444444445,
+  "stockCodeExtractionAccuracy" : 0.9230769230769231,
+  "yearExtractionAccuracy" : 0.0,
+  "metricsByType" : {
+    "fact" : {
+      "total" : 60,
+      "passed" : 59,
+      "skipped" : 0,
+      "avgRecall" : 0.5953125,
+      "avgMrr" : 0.7647222222222222
+    },
+    "indicator" : {
+      "total" : 60,
+      "passed" : 6,
+      "skipped" : 0,
+      "avgRecall" : 0.29375,
+      "avgMrr" : 0.7666666666666667
+    },
+    "reasoning" : {
+      "total" : 10,
+      "passed" : 0,
+      "skipped" : 10,
+      "avgRecall" : 0.0,
+      "avgMrr" : 0.0
+    }
+  },
+  "badCases" : [ {
+    "taskId" : "8604227c41204462a055d2056646a8a1",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的应收帐款,长期借款,商誉,净利润,货币资金,存货,在建工程,营业成本,应付职工薪酬,应付债券,应付帐款,归属于母公司所有者的净利润,营业收入,非流动资产合计,短期借款,营业总成本,负债合计,经营活动现金流量净额,股东权益合计,管理费用,固定资产净额,流动负债合计,流动资产合计,归属于母公司所有者权益合计,销售费用,利润总额,投资活动产生的现金流量净额,资产总计,筹资活动产生的现金流量净额,营业总收入,财务费用,长期负债合计等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "expectedSummary" : "32 facts expected",
+    "retrievedSummary" : "found 31",
+    "reason" : "found 31/32 facts in candidates"
+  }, {
+    "taskId" : "886d5885729e4b0992f7bd762d5f1ef2",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的期间费用率,非流动资产合计与资产总计的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "2 facts expected",
+    "retrievedSummary" : "found 1",
+    "reason" : "found 1/2 indicators computed correctly"
+  }, {
+    "taskId" : "e29e3673a8ab4575be4fdb814c71c582",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的应收帐款与资产总计的比例,存货周转天数,经营活动现金流量净额与净利润的比例,固定资产净额与资产总计的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "4 facts expected",
+    "retrievedSummary" : "found 3",
+    "reason" : "found 3/4 indicators computed correctly"
+  }, {
+    "taskId" : "c05bcd176dbc4b35b3b003b89799589a",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的销售商品提供劳务收到的现金与营业收入的比例,资产负债率,应付帐款与负债合计的比例,净利润增长率,应收账款周转率,总资产周转率,流动比率,存货与资产总计的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "8 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "found 0/8 indicators computed correctly"
+  }, {
+    "taskId" : "9995506b0b764c69a0ec971c37498f60",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的应收账款周转率,速动比率,非流动资产合计与资产总计的比例,总资产收益率,经营活动现金流量净额增长率,销售商品提供劳务收到的现金与营业收入的比例,流动资产周转率,应付帐款与负债合计的比例,销售费用与营业收入的比例,应收账款周转天数,固定资产净额与资产总计的比例,应付账款周转率,净利润增长率,存货周转天数,流动资产合计与资产总计的比例,营业收入增长率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "16 facts expected",
+    "retrievedSummary" : "found 5",
+    "reason" : "found 5/16 indicators computed correctly"
+  }, {
+    "taskId" : "45603d3fe2f34aa38f979f610ae962c4",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的应收帐款增长率,应收账款周转天数,存货与资产总计的比例,总资产周转率,应收账款周转率,销售毛利率,流动资产周转率,固定资产净额与资产总计的比例,销售商品提供劳务收到的现金与营业收入的比例,权益乘数,应付帐款与负债合计的比例,销售费用与营业收入的比例,应付账款周转率,期间费用率,产权比率,管理费用与营业收入的比例,营业周期,应付账款周转天数,应收帐款与资产总计的比例,经营活动现金流量净额增长率,资产负债率,经营活动现金流量净额与净利润的比例,流动负债合计与负债合计的比例,净资产收益率,营业收入增长率,财务费用与营业收入的比例,总资产收益率,速动比率,非流动资产合计与资产总计的比例,存货周转天数,长期负债合计与负债合计的比例,商誉与资产总计的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "32 facts expected",
+    "retrievedSummary" : "found 5",
+    "reason" : "found 5/32 indicators computed correctly"
+  }, {
+    "taskId" : "90c6017966254de6a52a08924318abab",
+    "taskType" : "reasoning",
+    "question" : "根据给定的判断条件和公司的合并财务报表数据，完成以下任务: 1. 判断公司2023年的财务状况是否符合这些条件，输出一个markdown格式的表格， 列名是序号、是否成立。2. 根据第一步的结果，对成立的条件进行深入地综合分析和解读。",
+    "expectedSummary" : "0 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "reasoning 类型暂不自动评测"
+  }, {
+    "taskId" : "00755fb04692447285befc3fb7f179ea",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的应付帐款与负债合计的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "1 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "found 0/1 indicators computed correctly"
+  }, {
+    "taskId" : "9a8242a44d6448f0a33f84f35c6fab38",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的销售商品提供劳务收到的现金与营业收入的比例,资产负债率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "2 facts expected",
+    "retrievedSummary" : "found 1",
+    "reason" : "found 1/2 indicators computed correctly"
+  }, {
+    "taskId" : "9f49bcec683a4d828a580188bb49191d",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的应付帐款与负债合计的比例,速动比率,管理费用与营业收入的比例,经营活动现金流量净额增长率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "4 facts expected",
+    "retrievedSummary" : "found 1",
+    "reason" : "found 1/4 indicators computed correctly"
+  }, {
+    "taskId" : "cc34ebeeba7e4fd4bc8b85db74041c0a",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的销售商品提供劳务收到的现金与营业收入的比例,应收账款周转率,管理费用与营业收入的比例,净资产收益率,经营活动现金流量净额与净利润的比例,销售净利率,固定资产净额与资产总计的比例,营业收入增长率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "8 facts expected",
+    "retrievedSummary" : "found 2",
+    "reason" : "found 2/8 indicators computed correctly"
+  }, {
+    "taskId" : "0bdc42c0fa5b4ea681b83dfb7fe55888",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的权益乘数,应收帐款增长率,存货周转天数,净利润增长率,商誉与资产总计的比例,应付帐款与负债合计的比例,经营活动现金流量净额与净利润的比例,销售商品提供劳务收到的现金与营业收入的比例,存货周转率,营业周期,管理费用与营业收入的比例,销售净利率,流动资产周转率,财务费用与营业收入的比例,应收帐款与资产总计的比例,应付账款周转天数等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "16 facts expected",
+    "retrievedSummary" : "found 3",
+    "reason" : "found 3/16 indicators computed correctly"
+  }, {
+    "taskId" : "ed312d50c8d24710a8e8521b70806a58",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的总资产收益率,固定资产周转率,期间费用率,流动负债合计与负债合计的比例,经营活动现金流量净额增长率,存货与资产总计的比例,销售净利率,净利润增长率,应收帐款增长率,长期负债合计与负债合计的比例,存货周转率,应收账款周转率,应收帐款与资产总计的比例,商誉与资产总计的比例,营业周期,经营活动现金流量净额与净利润的比例,净资产收益率,速动比率,流动比率,权益乘数,资产负债率,非流动资产合计与资产总计的比例,应收账款周转天数,财务费用与营业收入的比例,总资产周转率,流动资产周转率,销售商品提供劳务收到的现金与营业收入的比例,存货周转天数,流动资产合计与资产总计的比例,营业收入增长率,销售费用与营业收入的比例,应付账款周转天数等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "32 facts expected",
+    "retrievedSummary" : "found 5",
+    "reason" : "found 5/32 indicators computed correctly"
+  }, {
+    "taskId" : "8878d09e24b24c87a1be370c28c8f85b",
+    "taskType" : "reasoning",
+    "question" : "根据给定的判断条件和公司的合并财务报表数据，完成以下任务: 1. 判断公司2023年的财务状况是否符合这些条件，输出一个markdown格式的表格， 列名是序号、是否成立。2. 根据第一步的结果，对成立的条件进行深入地综合分析和解读。",
+    "expectedSummary" : "0 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "reasoning 类型暂不自动评测"
+  }, {
+    "taskId" : "1576a2a1ae334d649b23447f71095591",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的产权比率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "1 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "found 0/1 indicators computed correctly"
+  }, {
+    "taskId" : "b0badd4c9ca94740876b662cc808107a",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的流动比率,存货与资产总计的比例,存货周转天数,固定资产净额与资产总计的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "4 facts expected",
+    "retrievedSummary" : "found 2",
+    "reason" : "found 2/4 indicators computed correctly"
+  }, {
+    "taskId" : "c5d78bbd3f054244847f18e966c54ecb",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的产权比率,应付账款周转天数,资产负债率,总资产周转率,存货周转天数,应付帐款与负债合计的比例,营业收入增长率,销售商品提供劳务收到的现金与营业收入的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "8 facts expected",
+    "retrievedSummary" : "found 1",
+    "reason" : "found 1/8 indicators computed correctly"
+  }, {
+    "taskId" : "2f210ebdc48f495588ccaf66a685969c",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的销售费用与营业收入的比例,产权比率,流动资产周转率,权益乘数,应付帐款与负债合计的比例,净利润增长率,固定资产周转率,应收账款周转率,销售净利率,管理费用与营业收入的比例,经营活动现金流量净额与净利润的比例,经营活动现金流量净额增长率,期间费用率,应收帐款增长率,流动资产合计与资产总计的比例,流动比率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "16 facts expected",
+    "retrievedSummary" : "found 4",
+    "reason" : "found 4/16 indicators computed correctly"
+  }, {
+    "taskId" : "d6a988cd94bb422090aeeb405517d82b",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的应收账款周转天数,速动比率,销售净利率,总资产周转率,存货周转率,流动负债合计与负债合计的比例,存货周转天数,权益乘数,应收帐款与资产总计的比例,销售商品提供劳务收到的现金与营业收入的比例,固定资产净额与资产总计的比例,商誉与资产总计的比例,应付账款周转率,应付账款周转天数,流动资产周转率,管理费用与营业收入的比例,应收帐款增长率,经营活动现金流量净额增长率,应收账款周转率,销售毛利率,流动比率,经营活动现金流量净额与净利润的比例,净利润增长率,财务费用与营业收入的比例,期间费用率,资产负债率,存货与资产总计的比例,产权比率,营业周期,总资产收益率,流动资产合计与资产总计的比例,非流动资产合计与资产总计的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "32 facts expected",
+    "retrievedSummary" : "found 2",
+    "reason" : "found 2/32 indicators computed correctly"
+  }, {
+    "taskId" : "b6b5f6c3ca334350a773c4b42c1a566f",
+    "taskType" : "reasoning",
+    "question" : "根据给定的判断条件和公司的合并财务报表数据，完成以下任务: 1. 判断公司2023年的财务状况是否符合这些条件，输出一个markdown格式的表格， 列名是序号、是否成立。2. 根据第一步的结果，对成立的条件进行深入地综合分析和解读。",
+    "expectedSummary" : "0 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "reasoning 类型暂不自动评测"
+  }, {
+    "taskId" : "c30b8ee4331c4465989ae3e9aa28cf5a",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的应收账款周转天数,销售净利率,营业周期,流动比率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "4 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "found 0/4 indicators computed correctly"
+  }, {
+    "taskId" : "e51ad3b60ad8478f9dc1c2d02741514c",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的经营活动现金流量净额增长率,应付帐款与负债合计的比例,净资产收益率,应付账款周转率,销售净利率,销售费用与营业收入的比例,应收帐款与资产总计的比例,总资产周转率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "8 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "found 0/8 indicators computed correctly"
+  }, {
+    "taskId" : "48d0f30a744b4cd69636056174cd64b1",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的速动比率,长期负债合计与负债合计的比例,流动负债合计与负债合计的比例,存货周转天数,存货与资产总计的比例,存货周转率,管理费用与营业收入的比例,销售商品提供劳务收到的现金与营业收入的比例,权益乘数,经营活动现金流量净额增长率,应付账款周转天数,固定资产周转率,应付账款周转率,应付帐款与负债合计的比例,经营活动现金流量净额与净利润的比例,期间费用率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "16 facts expected",
+    "retrievedSummary" : "found 2",
+    "reason" : "found 2/16 indicators computed correctly"
+  }, {
+    "taskId" : "f7c0827e0de7497c90ce8c7a3e0fcd37",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的净利润增长率,应收账款周转天数,权益乘数,非流动资产合计与资产总计的比例,期间费用率,速动比率,流动资产周转率,管理费用与营业收入的比例,销售净利率,应付账款周转天数,营业周期,长期负债合计与负债合计的比例,应收帐款与资产总计的比例,销售毛利率,存货周转天数,销售费用与营业收入的比例,应付帐款与负债合计的比例,流动负债合计与负债合计的比例,财务费用与营业收入的比例,产权比率,存货与资产总计的比例,固定资产净额与资产总计的比例,经营活动现金流量净额增长率,流动比率,资产负债率,应付账款周转率,应收帐款增长率,营业收入增长率,净资产收益率,存货周转率,总资产收益率,流动资产合计与资产总计的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "32 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "found 0/32 indicators computed correctly"
+  }, {
+    "taskId" : "25ba559e1e834b53b3c7f749a09f2e51",
+    "taskType" : "reasoning",
+    "question" : "根据给定的判断条件和公司的合并财务报表数据，完成以下任务: 1. 判断公司2023年的财务状况是否符合这些条件，输出一个markdown格式的表格， 列名是序号、是否成立。2. 根据第一步的结果，对成立的条件进行深入地综合分析和解读。",
+    "expectedSummary" : "0 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "reasoning 类型暂不自动评测"
+  }, {
+    "taskId" : "c1b944246eae4400b37d697ae867f58d",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的总资产周转率,净利润增长率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "2 facts expected",
+    "retrievedSummary" : "found 1",
+    "reason" : "found 1/2 indicators computed correctly"
+  }, {
+    "taskId" : "679a0b874a7447ebb64ed4d6a83442ee",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的期间费用率,流动负债合计与负债合计的比例,商誉与资产总计的比例,流动资产周转率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "4 facts expected",
+    "retrievedSummary" : "found 2",
+    "reason" : "found 2/4 indicators computed correctly"
+  }, {
+    "taskId" : "6d5172a418454f31bbe5183d62a3cc94",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的存货周转率,存货周转天数,营业收入增长率,应收账款周转天数,净资产收益率,流动负债合计与负债合计的比例,流动资产合计与资产总计的比例,净利润增长率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "8 facts expected",
+    "retrievedSummary" : "found 2",
+    "reason" : "found 2/8 indicators computed correctly"
+  }, {
+    "taskId" : "45d8cd2674914ed8aac4d5f433f23dae",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的销售净利率,总资产收益率,流动负债合计与负债合计的比例,销售毛利率,流动资产周转率,应收账款周转天数,应收帐款增长率,长期负债合计与负债合计的比例,流动资产合计与资产总计的比例,固定资产净额与资产总计的比例,资产负债率,财务费用与营业收入的比例,流动比率,销售费用与营业收入的比例,存货周转率,应付账款周转率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "16 facts expected",
+    "retrievedSummary" : "found 4",
+    "reason" : "found 4/16 indicators computed correctly"
+  }, {
+    "taskId" : "de8a482a980240c0a71b34366687f3f7",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的应付账款周转率,商誉与资产总计的比例,资产负债率,非流动资产合计与资产总计的比例,存货周转率,权益乘数,速动比率,营业收入增长率,总资产收益率,应收帐款增长率,应收帐款与资产总计的比例,净资产收益率,营业周期,财务费用与营业收入的比例,期间费用率,产权比率,应付账款周转天数,经营活动现金流量净额与净利润的比例,长期负债合计与负债合计的比例,销售毛利率,存货与资产总计的比例,净利润增长率,固定资产净额与资产总计的比例,销售商品提供劳务收到的现金与营业收入的比例,流动资产周转率,流动比率,固定资产周转率,总资产周转率,销售费用与营业收入的比例,管理费用与营业收入的比例,流动负债合计与负债合计的比例,应收账款周转天数等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "32 facts expected",
+    "retrievedSummary" : "found 3",
+    "reason" : "found 3/32 indicators computed correctly"
+  }, {
+    "taskId" : "2e8937a65a184aed9e00f54b09fd8a81",
+    "taskType" : "reasoning",
+    "question" : "根据给定的判断条件和公司的合并财务报表数据，完成以下任务: 1. 判断公司2023年的财务状况是否符合这些条件，输出一个markdown格式的表格， 列名是序号、是否成立。2. 根据第一步的结果，对成立的条件进行深入地综合分析和解读。",
+    "expectedSummary" : "0 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "reasoning 类型暂不自动评测"
+  }, {
+    "taskId" : "9fb8e6c5fd914dcaac7b57e5a7480d38",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的应付帐款与负债合计的比例,应收账款周转率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "2 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "found 0/2 indicators computed correctly"
+  }, {
+    "taskId" : "029d69229dfd48e6be85d1af9ec173ee",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的销售商品提供劳务收到的现金与营业收入的比例,应付账款周转天数,销售净利率,净利润增长率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "4 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "found 0/4 indicators computed correctly"
+  }, {
+    "taskId" : "38e0e79246274a5abd6ef2bc1f1733e6",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的流动比率,商誉与资产总计的比例,净利润增长率,存货与资产总计的比例,销售费用与营业收入的比例,总资产周转率,应收账款周转天数,速动比率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "8 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "found 0/8 indicators computed correctly"
+  }, {
+    "taskId" : "a7f79e963450449aae2a5bee7ddc0888",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的销售费用与营业收入的比例,净利润增长率,长期负债合计与负债合计的比例,流动负债合计与负债合计的比例,存货周转率,存货周转天数,总资产收益率,应收账款周转率,销售毛利率,管理费用与营业收入的比例,非流动资产合计与资产总计的比例,销售商品提供劳务收到的现金与营业收入的比例,净资产收益率,应付帐款与负债合计的比例,固定资产周转率,固定资产净额与资产总计的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "16 facts expected",
+    "retrievedSummary" : "found 4",
+    "reason" : "found 4/16 indicators computed correctly"
+  }, {
+    "taskId" : "f6032e1e972b4172adc6c40019eed917",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的经营活动现金流量净额增长率,销售毛利率,期间费用率,速动比率,营业周期,总资产周转率,非流动资产合计与资产总计的比例,净利润增长率,固定资产净额与资产总计的比例,应收帐款与资产总计的比例,流动比率,财务费用与营业收入的比例,权益乘数,应付帐款与负债合计的比例,总资产收益率,应付账款周转天数,应收帐款增长率,管理费用与营业收入的比例,产权比率,固定资产周转率,销售费用与营业收入的比例,流动资产周转率,应收账款周转天数,销售净利率,长期负债合计与负债合计的比例,净资产收益率,存货周转天数,流动负债合计与负债合计的比例,资产负债率,流动资产合计与资产总计的比例,商誉与资产总计的比例,存货周转率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "32 facts expected",
+    "retrievedSummary" : "found 9",
+    "reason" : "found 9/32 indicators computed correctly"
+  }, {
+    "taskId" : "2ca248930e634e29b775fe08d4f72c8e",
+    "taskType" : "reasoning",
+    "question" : "根据给定的判断条件和公司的合并财务报表数据，完成以下任务: 1. 判断公司2023年的财务状况是否符合这些条件，输出一个markdown格式的表格， 列名是序号、是否成立。2. 根据第一步的结果，对成立的条件进行深入地综合分析和解读。",
+    "expectedSummary" : "0 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "reasoning 类型暂不自动评测"
+  }, {
+    "taskId" : "b0dfd57657fb4d4b8d28de6d0bc4a887",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的总资产周转率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "1 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "found 0/1 indicators computed correctly"
+  }, {
+    "taskId" : "795bf2633d784136ada5b60e71b8ac7d",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的非流动资产合计与资产总计的比例,存货周转率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "2 facts expected",
+    "retrievedSummary" : "found 1",
+    "reason" : "found 1/2 indicators computed correctly"
+  }, {
+    "taskId" : "2d2454c8dc5c49dca4f8086deb2c853b",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的流动资产合计与资产总计的比例,固定资产周转率,流动资产周转率,总资产收益率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "4 facts expected",
+    "retrievedSummary" : "found 1",
+    "reason" : "found 1/4 indicators computed correctly"
+  }, {
+    "taskId" : "50ccf8f1fd904e6faa7f87d63d144024",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的应收账款周转天数,销售净利率,流动比率,应收帐款与资产总计的比例,应付账款周转率,应收帐款增长率,资产负债率,应付账款周转天数等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "8 facts expected",
+    "retrievedSummary" : "found 2",
+    "reason" : "found 2/8 indicators computed correctly"
+  }, {
+    "taskId" : "0d2a36e0f76a4d59a7a559ceff5238c4",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的固定资产净额与资产总计的比例,应付帐款与负债合计的比例,速动比率,资产负债率,应付账款周转率,营业收入增长率,商誉与资产总计的比例,长期负债合计与负债合计的比例,流动资产周转率,存货周转天数,流动资产合计与资产总计的比例,净资产收益率,应收账款周转天数,财务费用与营业收入的比例,经营活动现金流量净额与净利润的比例,应收帐款增长率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "16 facts expected",
+    "retrievedSummary" : "found 3",
+    "reason" : "found 3/16 indicators computed correctly"
+  }, {
+    "taskId" : "76daa66dba4849a193305fb11e6841e4",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的营业收入增长率,销售净利率,存货周转率,财务费用与营业收入的比例,流动比率,净利润增长率,营业周期,应收帐款与资产总计的比例,销售费用与营业收入的比例,资产负债率,权益乘数,应收帐款增长率,产权比率,经营活动现金流量净额与净利润的比例,速动比率,应付帐款与负债合计的比例,应收账款周转率,存货周转天数,存货与资产总计的比例,销售商品提供劳务收到的现金与营业收入的比例,总资产收益率,应付账款周转率,非流动资产合计与资产总计的比例,经营活动现金流量净额增长率,流动资产周转率,长期负债合计与负债合计的比例,固定资产周转率,流动负债合计与负债合计的比例,固定资产净额与资产总计的比例,期间费用率,商誉与资产总计的比例,销售毛利率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "32 facts expected",
+    "retrievedSummary" : "found 4",
+    "reason" : "found 4/32 indicators computed correctly"
+  }, {
+    "taskId" : "efeb969e6db44fe8be1899df36fa4e0c",
+    "taskType" : "reasoning",
+    "question" : "根据给定的判断条件和公司的合并财务报表数据，完成以下任务: 1. 判断公司2023年的财务状况是否符合这些条件，输出一个markdown格式的表格， 列名是序号、是否成立。2. 根据第一步的结果，对成立的条件进行深入地综合分析和解读。",
+    "expectedSummary" : "0 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "reasoning 类型暂不自动评测"
+  }, {
+    "taskId" : "bc50f87e1d25470e8703b1682d712780",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的速动比率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "1 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "found 0/1 indicators computed correctly"
+  }, {
+    "taskId" : "f277941f5abc4a9c9931e84e512c3f8d",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的总资产周转率,应收帐款增长率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "2 facts expected",
+    "retrievedSummary" : "found 1",
+    "reason" : "found 1/2 indicators computed correctly"
+  }, {
+    "taskId" : "2c88743b766743b69065e90aafcf6301",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的存货与资产总计的比例,财务费用与营业收入的比例,权益乘数,非流动资产合计与资产总计的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "4 facts expected",
+    "retrievedSummary" : "found 1",
+    "reason" : "found 1/4 indicators computed correctly"
+  }, {
+    "taskId" : "c3ec1b0aa04b4ca88d2ae082e04448ea",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的速动比率,净资产收益率,流动比率,总资产收益率,流动资产周转率,应收账款周转天数,非流动资产合计与资产总计的比例,流动资产合计与资产总计的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "8 facts expected",
+    "retrievedSummary" : "found 3",
+    "reason" : "found 3/8 indicators computed correctly"
+  }, {
+    "taskId" : "62eee72e04cd4b2598921ecd0578452f",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的固定资产净额与资产总计的比例,应收帐款增长率,净资产收益率,应付账款周转天数,应收帐款与资产总计的比例,存货周转率,应付帐款与负债合计的比例,长期负债合计与负债合计的比例,存货周转天数,净利润增长率,经营活动现金流量净额增长率,总资产周转率,销售费用与营业收入的比例,应收账款周转率,权益乘数,财务费用与营业收入的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "16 facts expected",
+    "retrievedSummary" : "found 1",
+    "reason" : "found 1/16 indicators computed correctly"
+  }, {
+    "taskId" : "b02c4bda996341289eed071934b17bee",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的营业周期,应收账款周转天数,速动比率,净利润增长率,产权比率,经营活动现金流量净额增长率,财务费用与营业收入的比例,权益乘数,应付帐款与负债合计的比例,存货周转天数,应付账款周转率,应付账款周转天数,营业收入增长率,流动资产合计与资产总计的比例,存货周转率,流动比率,固定资产净额与资产总计的比例,销售商品提供劳务收到的现金与营业收入的比例,应收帐款与资产总计的比例,长期负债合计与负债合计的比例,管理费用与营业收入的比例,资产负债率,销售毛利率,流动负债合计与负债合计的比例,销售费用与营业收入的比例,应收帐款增长率,非流动资产合计与资产总计的比例,净资产收益率,存货与资产总计的比例,总资产收益率,销售净利率,总资产周转率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "32 facts expected",
+    "retrievedSummary" : "found 8",
+    "reason" : "found 8/32 indicators computed correctly"
+  }, {
+    "taskId" : "570ab070c23a4a29a26ccd7562309810",
+    "taskType" : "reasoning",
+    "question" : "根据给定的判断条件和公司的合并财务报表数据，完成以下任务: 1. 判断公司2023年的财务状况是否符合这些条件，输出一个markdown格式的表格， 列名是序号、是否成立。2. 根据第一步的结果，对成立的条件进行深入地综合分析和解读。",
+    "expectedSummary" : "0 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "reasoning 类型暂不自动评测"
+  }, {
+    "taskId" : "5385d1b8ac474b51b262ff69067aa3aa",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的销售毛利率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "1 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "found 0/1 indicators computed correctly"
+  }, {
+    "taskId" : "cc8fb2f8af9c44d1a7d3ca53acc11540",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的销售毛利率,经营活动现金流量净额与净利润的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "2 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "found 0/2 indicators computed correctly"
+  }, {
+    "taskId" : "cf28b8cb92cf46c4b7e4163ae2288a89",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的长期负债合计与负债合计的比例,权益乘数,应付账款周转率,应收帐款与资产总计的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "4 facts expected",
+    "retrievedSummary" : "found 2",
+    "reason" : "found 2/4 indicators computed correctly"
+  }, {
+    "taskId" : "eb3a93971baf4f21863acb5100611bf5",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的应付帐款与负债合计的比例,管理费用与营业收入的比例,应收帐款增长率,资产负债率,产权比率,存货周转天数,长期负债合计与负债合计的比例,流动负债合计与负债合计的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "8 facts expected",
+    "retrievedSummary" : "found 6",
+    "reason" : "found 6/8 indicators computed correctly"
+  }, {
+    "taskId" : "77e8a0e7491c443c8c3aeac6c5a11772",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的流动比率,经营活动现金流量净额与净利润的比例,应付账款周转天数,应收帐款增长率,净资产收益率,存货周转率,产权比率,销售毛利率,营业收入增长率,净利润增长率,存货周转天数,期间费用率,应付帐款与负债合计的比例,营业周期,销售商品提供劳务收到的现金与营业收入的比例,管理费用与营业收入的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "16 facts expected",
+    "retrievedSummary" : "found 1",
+    "reason" : "found 1/16 indicators computed correctly"
+  }, {
+    "taskId" : "3d5bb51a18d94b4a8155ed541c417952",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的经营活动现金流量净额与净利润的比例,固定资产周转率,存货周转率,流动比率,商誉与资产总计的比例,营业收入增长率,销售毛利率,非流动资产合计与资产总计的比例,应付账款周转率,应收帐款与资产总计的比例,产权比率,应收账款周转天数,应付账款周转天数,长期负债合计与负债合计的比例,流动资产周转率,销售净利率,存货周转天数,销售费用与营业收入的比例,速动比率,净资产收益率,应付帐款与负债合计的比例,权益乘数,销售商品提供劳务收到的现金与营业收入的比例,流动负债合计与负债合计的比例,存货与资产总计的比例,固定资产净额与资产总计的比例,应收帐款增长率,营业周期,资产负债率,期间费用率,经营活动现金流量净额增长率,总资产周转率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "32 facts expected",
+    "retrievedSummary" : "found 5",
+    "reason" : "found 5/32 indicators computed correctly"
+  }, {
+    "taskId" : "3e8fcc7a2d384254b9c6e9ecb8c4a6da",
+    "taskType" : "reasoning",
+    "question" : "根据给定的判断条件和公司的合并财务报表数据，完成以下任务: 1. 判断公司2023年的财务状况是否符合这些条件，输出一个markdown格式的表格， 列名是序号、是否成立。2. 根据第一步的结果，对成立的条件进行深入地综合分析和解读。",
+    "expectedSummary" : "0 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "reasoning 类型暂不自动评测"
+  }, {
+    "taskId" : "f3633849289341bcb994d044a2ae5098",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的净资产收益率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "1 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "found 0/1 indicators computed correctly"
+  }, {
+    "taskId" : "57136a06574f49b7a0af77126185f42a",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的销售费用与营业收入的比例,总资产收益率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "2 facts expected",
+    "retrievedSummary" : "found 1",
+    "reason" : "found 1/2 indicators computed correctly"
+  }, {
+    "taskId" : "a7997680649649f78c681203dfa7f757",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的速动比率,销售毛利率,应收帐款增长率,总资产周转率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "4 facts expected",
+    "retrievedSummary" : "found 1",
+    "reason" : "found 1/4 indicators computed correctly"
+  }, {
+    "taskId" : "b7a759e95f3b481b94110ce85f6c1681",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的净资产收益率,销售净利率,销售费用与营业收入的比例,总资产周转率,资产负债率,应收账款周转天数,管理费用与营业收入的比例,净利润增长率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "8 facts expected",
+    "retrievedSummary" : "found 1",
+    "reason" : "found 1/8 indicators computed correctly"
+  }, {
+    "taskId" : "ccbd01022f914d2dbcdade3129db7f59",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的应收帐款与资产总计的比例,应收帐款增长率,应付账款周转天数,管理费用与营业收入的比例,应收账款周转率,销售商品提供劳务收到的现金与营业收入的比例,总资产周转率,营业周期,存货周转天数,销售净利率,固定资产净额与资产总计的比例,期间费用率,流动资产周转率,总资产收益率,速动比率,净资产收益率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "16 facts expected",
+    "retrievedSummary" : "found 2",
+    "reason" : "found 2/16 indicators computed correctly"
+  }, {
+    "taskId" : "ed41c98f9337498cadf0b74f26a46b09",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的净资产收益率,应付帐款与负债合计的比例,权益乘数,销售净利率,销售毛利率,存货与资产总计的比例,营业收入增长率,总资产收益率,销售商品提供劳务收到的现金与营业收入的比例,管理费用与营业收入的比例,应收帐款增长率,产权比率,速动比率,应收账款周转率,应收帐款与资产总计的比例,固定资产周转率,流动资产周转率,商誉与资产总计的比例,营业周期,资产负债率,销售费用与营业收入的比例,财务费用与营业收入的比例,固定资产净额与资产总计的比例,应付账款周转率,流动负债合计与负债合计的比例,非流动资产合计与资产总计的比例,应收账款周转天数,净利润增长率,流动比率,存货周转率,存货周转天数,经营活动现金流量净额增长率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "expectedSummary" : "32 facts expected",
+    "retrievedSummary" : "found 5",
+    "reason" : "found 5/32 indicators computed correctly"
+  }, {
+    "taskId" : "516991c8c28040c7a9b3fcb7c00048ce",
+    "taskType" : "reasoning",
+    "question" : "根据给定的判断条件和公司的合并财务报表数据，完成以下任务: 1. 判断公司2023年的财务状况是否符合这些条件，输出一个markdown格式的表格， 列名是序号、是否成立。2. 根据第一步的结果，对成立的条件进行深入地综合分析和解读。",
+    "expectedSummary" : "0 facts expected",
+    "retrievedSummary" : "found 0",
+    "reason" : "reasoning 类型暂不自动评测"
+  } ],
+  "passedCaseList" : [ {
+    "taskId" : "348fa9ddd50a4e2398b746208e908de7",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的归属于母公司所有者的净利润等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 1.0,
+    "totalExpected" : 1,
+    "foundFacts" : 1
+  }, {
+    "taskId" : "c2901f8f116842e1b4f074c65a126665",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的应付债券,应付帐款等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 1.0,
+    "totalExpected" : 2,
+    "foundFacts" : 2
+  }, {
+    "taskId" : "5b9899ec39fc4e4c9553c1ccf78e8509",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的归属于母公司所有者权益合计,应付职工薪酬,营业收入,筹资活动产生的现金流量净额等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.75,
+    "mrr" : 1.0,
+    "totalExpected" : 4,
+    "foundFacts" : 4
+  }, {
+    "taskId" : "7fbb647ca7454f2ab14888931a5e5cf1",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的长期借款,资产总计,归属于母公司所有者的净利润,归属于母公司所有者权益合计,短期借款,商誉,营业收入,投资活动产生的现金流量净额等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.375,
+    "mrr" : 1.0,
+    "totalExpected" : 8,
+    "foundFacts" : 8
+  }, {
+    "taskId" : "747c8b6cdebd4448b4e7c4d736cf72c6",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的货币资金,应付帐款,销售费用,应付职工薪酬,短期借款,营业总收入,商誉,资产总计,长期借款,归属于母公司所有者的净利润,营业收入,净利润,股东权益合计,应收帐款,利润总额,经营活动现金流量净额等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.375,
+    "mrr" : 1.0,
+    "totalExpected" : 16,
+    "foundFacts" : 16
+  }, {
+    "taskId" : "b4ca590e90834e89898a203c46ac55d4",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的管理费用与营业收入的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "recallAt10" : 1.0,
+    "mrr" : 1.0,
+    "totalExpected" : 1,
+    "foundFacts" : 1
+  }, {
+    "taskId" : "7377c58afd62485a8bc3e477a2d23e78",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的固定资产净额等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 0.2,
+    "totalExpected" : 1,
+    "foundFacts" : 1
+  }, {
+    "taskId" : "e5ebe4ee141d480a8712a80f339cbe88",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的投资活动产生的现金流量净额,流动资产合计等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.5,
+    "mrr" : 1.0,
+    "totalExpected" : 2,
+    "foundFacts" : 2
+  }, {
+    "taskId" : "7df53721931c4f9084468d602667b428",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的应付帐款,营业成本,筹资活动产生的现金流量净额,固定资产净额等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.5,
+    "mrr" : 1.0,
+    "totalExpected" : 4,
+    "foundFacts" : 4
+  }, {
+    "taskId" : "d2b8ed1963c84709b53c2a7f5d47eecf",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的资产总计,营业总成本,财务费用,管理费用,商誉,经营活动现金流量净额,筹资活动产生的现金流量净额,营业总收入等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.375,
+    "mrr" : 1.0,
+    "totalExpected" : 8,
+    "foundFacts" : 8
+  }, {
+    "taskId" : "fdb3a570a2634c8387d194bae5fa8e61",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的短期借款,财务费用,资产总计,筹资活动产生的现金流量净额,净利润,营业收入,应付帐款,投资活动产生的现金流量净额,利润总额,在建工程,经营活动现金流量净额,股东权益合计,营业总成本,营业总收入,负债合计,管理费用等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.25,
+    "mrr" : 1.0,
+    "totalExpected" : 16,
+    "foundFacts" : 16
+  }, {
+    "taskId" : "2f9459b3cc9a469283773cdae1452ed7",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的资产总计,非流动资产合计,销售费用,管理费用,在建工程,归属于母公司所有者的净利润,流动负债合计,营业总收入,长期借款,短期借款,货币资金,投资活动产生的现金流量净额,应付帐款,净利润,营业总成本,存货,应付职工薪酬,利润总额,股东权益合计,固定资产净额,营业成本,应收帐款,应付债券,长期负债合计,营业收入,流动资产合计,财务费用,商誉,筹资活动产生的现金流量净额,经营活动现金流量净额,负债合计,归属于母公司所有者权益合计等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.28125,
+    "mrr" : 1.0,
+    "totalExpected" : 32,
+    "foundFacts" : 32
+  }, {
+    "taskId" : "82c8f73e4532407e82a871bac1560f72",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的财务费用等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 0.2,
+    "totalExpected" : 1,
+    "foundFacts" : 1
+  }, {
+    "taskId" : "32644b256505410889e3cd41dbfb83e8",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的负债合计,净利润等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 0.16666666666666666,
+    "totalExpected" : 2,
+    "foundFacts" : 2
+  }, {
+    "taskId" : "c3f871058125465d9b2ba8e2efe02524",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的商誉,财务费用,应付职工薪酬,投资活动产生的现金流量净额等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.5,
+    "mrr" : 1.0,
+    "totalExpected" : 4,
+    "foundFacts" : 4
+  }, {
+    "taskId" : "dd5681a3575342b89d590c2f833c4763",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的短期借款,应付债券,利润总额,负债合计,货币资金,商誉,营业成本,管理费用等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.375,
+    "mrr" : 0.5,
+    "totalExpected" : 8,
+    "foundFacts" : 8
+  }, {
+    "taskId" : "ae635775266241e39041a6ef9ed9a4dd",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的筹资活动产生的现金流量净额,非流动资产合计,应付帐款,流动负债合计,营业收入,货币资金,投资活动产生的现金流量净额,资产总计,利润总额,流动资产合计,净利润,长期借款,财务费用,营业成本,管理费用,商誉等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.25,
+    "mrr" : 1.0,
+    "totalExpected" : 16,
+    "foundFacts" : 16
+  }, {
+    "taskId" : "2d3294540d62497a952c1dff391bff0f",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的流动资产合计,资产总计,经营活动现金流量净额,营业成本,流动负债合计,股东权益合计,营业收入,归属于母公司所有者权益合计,财务费用,归属于母公司所有者的净利润,利润总额,长期借款,短期借款,净利润,应收帐款,销售费用,货币资金,在建工程,管理费用,营业总成本,营业总收入,应付职工薪酬,存货,负债合计,非流动资产合计,固定资产净额,投资活动产生的现金流量净额,长期负债合计,应付债券,筹资活动产生的现金流量净额,商誉,应付帐款等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.28125,
+    "mrr" : 1.0,
+    "totalExpected" : 32,
+    "foundFacts" : 32
+  }, {
+    "taskId" : "80ec2e6194ef4bc698e8c67658f34160",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的流动负债合计与负债合计的比例,净利润增长率等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "recallAt10" : 1.0,
+    "mrr" : 1.0,
+    "totalExpected" : 2,
+    "foundFacts" : 2
+  }, {
+    "taskId" : "6d7116ce9c9448a288f0ca881fc12453",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的应付债券等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 0.5,
+    "totalExpected" : 1,
+    "foundFacts" : 1
+  }, {
+    "taskId" : "3c8038c7e21f4c9980c3865b43796c7a",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的短期借款,财务费用等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 0.5,
+    "totalExpected" : 2,
+    "foundFacts" : 2
+  }, {
+    "taskId" : "276027af593e4d61a5631c5e9cc1a74d",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的货币资金,营业收入,资产总计,销售费用等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 0.25,
+    "totalExpected" : 4,
+    "foundFacts" : 4
+  }, {
+    "taskId" : "91caa561696346899b8b360823bdd573",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的流动资产合计,管理费用,应付职工薪酬,归属于母公司所有者的净利润,经营活动现金流量净额,货币资金,营业收入,应收帐款等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.25,
+    "mrr" : 1.0,
+    "totalExpected" : 8,
+    "foundFacts" : 8
+  }, {
+    "taskId" : "a413a33e3f8643ffb786a2cca770361f",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的管理费用,应付帐款,营业总成本,股东权益合计,在建工程,商誉,负债合计,流动负债合计,净利润,固定资产净额,短期借款,营业收入,存货,经营活动现金流量净额,投资活动产生的现金流量净额,利润总额等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.3125,
+    "mrr" : 1.0,
+    "totalExpected" : 16,
+    "foundFacts" : 16
+  }, {
+    "taskId" : "606c977e1d6a4040aac5874f120fdd87",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的筹资活动产生的现金流量净额,短期借款,营业总成本,应付帐款,股东权益合计,经营活动现金流量净额,归属于母公司所有者的净利润,长期负债合计,财务费用,投资活动产生的现金流量净额,应收帐款,商誉,在建工程,营业总收入,应付债券,应付职工薪酬,营业成本,净利润,固定资产净额,长期借款,资产总计,营业收入,货币资金,流动负债合计,存货,非流动资产合计,利润总额,流动资产合计,销售费用,归属于母公司所有者权益合计,负债合计,管理费用等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.28125,
+    "mrr" : 1.0,
+    "totalExpected" : 32,
+    "foundFacts" : 32
+  }, {
+    "taskId" : "7b58155342af4eda8f6d21852132bf3e",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的财务费用与营业收入的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "recallAt10" : 1.0,
+    "mrr" : 1.0,
+    "totalExpected" : 1,
+    "foundFacts" : 1
+  }, {
+    "taskId" : "100066942821410090df45a7cdf14685",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的应收帐款增长率,流动资产合计与资产总计的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "recallAt10" : 1.0,
+    "mrr" : 1.0,
+    "totalExpected" : 2,
+    "foundFacts" : 2
+  }, {
+    "taskId" : "50b9e75fae6d411a9cdf160577e28643",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的股东权益合计等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 0.3333333333333333,
+    "totalExpected" : 1,
+    "foundFacts" : 1
+  }, {
+    "taskId" : "4e87de9d6f60416ba0a0f32a750d6cff",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的长期负债合计,股东权益合计等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 0.5,
+    "totalExpected" : 2,
+    "foundFacts" : 2
+  }, {
+    "taskId" : "44c826fe1ce54facace9b0b92583867b",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的存货,归属于母公司所有者的净利润,货币资金,固定资产净额等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.5,
+    "mrr" : 1.0,
+    "totalExpected" : 4,
+    "foundFacts" : 4
+  }, {
+    "taskId" : "71f1df4d2cd0412eb51b573158fe0e58",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的资产总计,营业总成本,固定资产净额,在建工程,净利润,营业总收入,筹资活动产生的现金流量净额,长期借款等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.5,
+    "mrr" : 1.0,
+    "totalExpected" : 8,
+    "foundFacts" : 8
+  }, {
+    "taskId" : "7ee05236642340e3b86dcb19aee95a53",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的长期借款,营业总收入,经营活动现金流量净额,负债合计,应付帐款,股东权益合计,货币资金,非流动资产合计,归属于母公司所有者权益合计,应收帐款,在建工程,固定资产净额,存货,短期借款,投资活动产生的现金流量净额,长期负债合计等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.3125,
+    "mrr" : 1.0,
+    "totalExpected" : 16,
+    "foundFacts" : 16
+  }, {
+    "taskId" : "4b1f397e60d04c56b1c4fc30e898494a",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的应收帐款,投资活动产生的现金流量净额,销售费用,净利润,流动负债合计,在建工程,利润总额,归属于母公司所有者的净利润,长期借款,负债合计,管理费用,应付职工薪酬,股东权益合计,经营活动现金流量净额,筹资活动产生的现金流量净额,归属于母公司所有者权益合计,流动资产合计,存货,非流动资产合计,短期借款,货币资金,商誉,营业成本,资产总计,应付债券,财务费用,长期负债合计,营业总成本,应付帐款,营业收入,固定资产净额,营业总收入等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.28125,
+    "mrr" : 1.0,
+    "totalExpected" : 32,
+    "foundFacts" : 32
+  }, {
+    "taskId" : "00099d2fe0a5418eb3c4048e583b31d9",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的固定资产净额与资产总计的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "recallAt10" : 1.0,
+    "mrr" : 1.0,
+    "totalExpected" : 1,
+    "foundFacts" : 1
+  }, {
+    "taskId" : "ee33c624c26849fca8941f8fc4ba1be4",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的长期负债合计等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 0.3333333333333333,
+    "totalExpected" : 1,
+    "foundFacts" : 1
+  }, {
+    "taskId" : "57a3b1fc2916431da3f7b44f0fda892b",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的营业总成本,商誉等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 0.5,
+    "totalExpected" : 2,
+    "foundFacts" : 2
+  }, {
+    "taskId" : "7fe07b3e8fa64f55b182ba3e12d6ecb3",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的归属于母公司所有者权益合计,流动资产合计,净利润,货币资金等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.5,
+    "mrr" : 1.0,
+    "totalExpected" : 4,
+    "foundFacts" : 4
+  }, {
+    "taskId" : "56b7dad2d9c84828ac83971e04052b09",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的营业总收入,销售费用,应付债券,负债合计,净利润,利润总额,营业成本,资产总计等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.5,
+    "mrr" : 1.0,
+    "totalExpected" : 8,
+    "foundFacts" : 8
+  }, {
+    "taskId" : "89867be4ac614889991a99756d73141b",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的短期借款,货币资金,负债合计,存货,营业总成本,财务费用,非流动资产合计,利润总额,应收帐款,股东权益合计,归属于母公司所有者的净利润,营业成本,长期借款,归属于母公司所有者权益合计,资产总计,投资活动产生的现金流量净额等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.375,
+    "mrr" : 1.0,
+    "totalExpected" : 16,
+    "foundFacts" : 16
+  }, {
+    "taskId" : "138131f7558147cab8583ece39e3ad54",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的经营活动现金流量净额,流动资产合计,短期借款,非流动资产合计,财务费用,商誉,应付帐款,资产总计,股东权益合计,净利润,营业总成本,存货,应付债券,应付职工薪酬,营业收入,投资活动产生的现金流量净额,营业总收入,流动负债合计,应收帐款,长期借款,负债合计,归属于母公司所有者的净利润,在建工程,营业成本,利润总额,管理费用,筹资活动产生的现金流量净额,固定资产净额,货币资金,归属于母公司所有者权益合计,销售费用,长期负债合计等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.28125,
+    "mrr" : 1.0,
+    "totalExpected" : 32,
+    "foundFacts" : 32
+  }, {
+    "taskId" : "9e277df659e1434d8655984c69f98f0e",
+    "taskType" : "indicator",
+    "question" : "计算公司合并财务报表中2023的财务费用与营业收入的比例等数据。输出一个markdown格式的表格，列名为项目,2023。结果表示为小数，保留4位小数。",
+    "recallAt10" : 1.0,
+    "mrr" : 1.0,
+    "totalExpected" : 1,
+    "foundFacts" : 1
+  }, {
+    "taskId" : "ebb27c56d613481a948d2592dd8d7d69",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的流动负债合计等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 0.3333333333333333,
+    "totalExpected" : 1,
+    "foundFacts" : 1
+  }, {
+    "taskId" : "272e98f2cd79490a9d555c270cb9cd56",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的净利润,营业总收入等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 0.3333333333333333,
+    "totalExpected" : 2,
+    "foundFacts" : 2
+  }, {
+    "taskId" : "88f2dc6bc0da470fa278ce5de398b810",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的应收帐款,商誉,短期借款,应付职工薪酬等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.75,
+    "mrr" : 1.0,
+    "totalExpected" : 4,
+    "foundFacts" : 4
+  }, {
+    "taskId" : "88c59128dd8140e8a8ad5a64671fda6c",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的归属于母公司所有者权益合计,经营活动现金流量净额,资产总计,利润总额,应收帐款,投资活动产生的现金流量净额,非流动资产合计,营业总收入等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.5,
+    "mrr" : 1.0,
+    "totalExpected" : 8,
+    "foundFacts" : 8
+  }, {
+    "taskId" : "11fb2a3211d140daab9fc4c727ff7f4f",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的净利润,归属于母公司所有者的净利润,应付债券,归属于母公司所有者权益合计,货币资金,流动资产合计,营业总收入,管理费用,流动负债合计,销售费用,财务费用,营业收入,利润总额,应收帐款,应付职工薪酬,非流动资产合计等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.4375,
+    "mrr" : 1.0,
+    "totalExpected" : 16,
+    "foundFacts" : 16
+  }, {
+    "taskId" : "71757c4e59d9459387ac9bf911711386",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的资产总计,货币资金,负债合计,销售费用,流动资产合计,存货,归属于母公司所有者权益合计,短期借款,营业成本,长期负债合计,应付帐款,股东权益合计,在建工程,应付职工薪酬,筹资活动产生的现金流量净额,归属于母公司所有者的净利润,财务费用,固定资产净额,应收帐款,商誉,净利润,营业总成本,营业总收入,应付债券,经营活动现金流量净额,利润总额,投资活动产生的现金流量净额,长期借款,流动负债合计,非流动资产合计,管理费用,营业收入等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.28125,
+    "mrr" : 1.0,
+    "totalExpected" : 32,
+    "foundFacts" : 32
+  }, {
+    "taskId" : "5749179e069f4cd2bd94263aa83c7f54",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的短期借款等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 0.5,
+    "totalExpected" : 1,
+    "foundFacts" : 1
+  }, {
+    "taskId" : "5fa045509df84033839c92d2dea6587c",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的净利润,筹资活动产生的现金流量净额等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.5,
+    "mrr" : 1.0,
+    "totalExpected" : 2,
+    "foundFacts" : 2
+  }, {
+    "taskId" : "2376cf24f0194a5dbbe582b599fbc08c",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的商誉,归属于母公司所有者权益合计,货币资金,应付职工薪酬等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 1.0,
+    "totalExpected" : 4,
+    "foundFacts" : 4
+  }, {
+    "taskId" : "32c38e93e54d4ff2a00aabf6e2e5a415",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的净利润,短期借款,营业成本,应付债券,经营活动现金流量净额,资产总计,流动负债合计,利润总额等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.375,
+    "mrr" : 0.3333333333333333,
+    "totalExpected" : 8,
+    "foundFacts" : 8
+  }, {
+    "taskId" : "66867246be5748eab00a4903c5c5f82d",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的利润总额,营业总收入,资产总计,股东权益合计,流动负债合计,应付帐款,净利润,存货,投资活动产生的现金流量净额,应收帐款,在建工程,财务费用,营业成本,营业总成本,短期借款,筹资活动产生的现金流量净额等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.25,
+    "mrr" : 1.0,
+    "totalExpected" : 16,
+    "foundFacts" : 16
+  }, {
+    "taskId" : "9bf5ca1e940246afbfbdc8388e65fb2f",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的非流动资产合计,净利润,归属于母公司所有者的净利润,营业总收入,长期借款,营业成本,利润总额,归属于母公司所有者权益合计,流动负债合计,应付债券,股东权益合计,筹资活动产生的现金流量净额,投资活动产生的现金流量净额,管理费用,应付职工薪酬,营业收入,销售费用,存货,应付帐款,货币资金,财务费用,长期负债合计,经营活动现金流量净额,应收帐款,在建工程,资产总计,固定资产净额,营业总成本,短期借款,商誉,流动资产合计,负债合计等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.28125,
+    "mrr" : 1.0,
+    "totalExpected" : 32,
+    "foundFacts" : 32
+  }, {
+    "taskId" : "871b3028e9c742c5adc67ade3a434850",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的存货等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 0.2,
+    "totalExpected" : 1,
+    "foundFacts" : 1
+  }, {
+    "taskId" : "d505a88481104a7f9102b16b15b7fb8a",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的流动负债合计,筹资活动产生的现金流量净额等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.5,
+    "mrr" : 1.0,
+    "totalExpected" : 2,
+    "foundFacts" : 2
+  }, {
+    "taskId" : "8cae0a069f594cda81076715c3c0bbe0",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的应付职工薪酬,归属于母公司所有者的净利润,营业总收入,股东权益合计等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 1.0,
+    "totalExpected" : 4,
+    "foundFacts" : 4
+  }, {
+    "taskId" : "47690e6be0a74f83a7243b68b598eee6",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的存货,在建工程,经营活动现金流量净额,应收帐款,营业总成本,应付债券,财务费用,短期借款等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.375,
+    "mrr" : 0.3333333333333333,
+    "totalExpected" : 8,
+    "foundFacts" : 8
+  }, {
+    "taskId" : "c83d9e6a162a4fd2a5685555f39fa750",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的流动资产合计,归属于母公司所有者的净利润,经营活动现金流量净额,财务费用,营业成本,应收帐款,净利润,流动负债合计,商誉,负债合计,筹资活动产生的现金流量净额,营业收入,非流动资产合计,长期负债合计,货币资金,短期借款等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.375,
+    "mrr" : 1.0,
+    "totalExpected" : 16,
+    "foundFacts" : 16
+  }, {
+    "taskId" : "12583b3d33f843faba9e968703216f37",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的经营活动现金流量净额,货币资金,营业收入,商誉,应收帐款,应付债券,筹资活动产生的现金流量净额,流动负债合计,营业总收入,管理费用,非流动资产合计,股东权益合计,应付帐款,营业成本,利润总额,资产总计,长期负债合计,归属于母公司所有者权益合计,短期借款,固定资产净额,投资活动产生的现金流量净额,财务费用,应付职工薪酬,长期借款,负债合计,归属于母公司所有者的净利润,净利润,流动资产合计,销售费用,在建工程,存货,营业总成本等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.28125,
+    "mrr" : 1.0,
+    "totalExpected" : 32,
+    "foundFacts" : 32
+  }, {
+    "taskId" : "9db5613484294f6d84bb82c49ec4c3d7",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的长期负债合计等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 0.3333333333333333,
+    "totalExpected" : 1,
+    "foundFacts" : 1
+  }, {
+    "taskId" : "1860a5de486a49d1b85ce63a4da4f1dc",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的货币资金,财务费用等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 1.0,
+    "mrr" : 0.2,
+    "totalExpected" : 2,
+    "foundFacts" : 2
+  }, {
+    "taskId" : "eb41f08a14d44ebba6557de720882b7a",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的固定资产净额,财务费用,货币资金,营业总收入等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.75,
+    "mrr" : 0.3333333333333333,
+    "totalExpected" : 4,
+    "foundFacts" : 4
+  }, {
+    "taskId" : "44e527fd97e844b4bc6cfcc947a5a9f2",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的财务费用,商誉,在建工程,负债合计,应付帐款,净利润,长期借款,经营活动现金流量净额等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.25,
+    "mrr" : 0.5,
+    "totalExpected" : 8,
+    "foundFacts" : 8
+  }, {
+    "taskId" : "2573f21320c64dd78bb97db7342a3232",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的净利润,营业收入,资产总计,筹资活动产生的现金流量净额,营业总成本,利润总额,营业总收入,营业成本,货币资金,长期负债合计,固定资产净额,长期借款,应付职工薪酬,股东权益合计,财务费用,商誉等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.3125,
+    "mrr" : 0.5,
+    "totalExpected" : 16,
+    "foundFacts" : 16
+  }, {
+    "taskId" : "c7936bf376c44db1944bc8d0a95818a7",
+    "taskType" : "fact",
+    "question" : "提取公司合并财务报表中2022，2023的销售费用,管理费用,应付职工薪酬,货币资金,净利润,资产总计,应收帐款,股东权益合计,归属于母公司所有者的净利润,应付帐款,长期负债合计,营业收入,财务费用,流动资产合计,流动负债合计,利润总额,长期借款,短期借款,固定资产净额,非流动资产合计,在建工程,归属于母公司所有者权益合计,经营活动现金流量净额,存货,营业总成本,营业成本,商誉,投资活动产生的现金流量净额,负债合计,营业总收入,筹资活动产生的现金流量净额,应付债券等数据。输出一个markdown格式的表格，列名为项目,2022，2023",
+    "recallAt10" : 0.28125,
+    "mrr" : 1.0,
+    "totalExpected" : 32,
+    "foundFacts" : 32
+  } ]
+}
