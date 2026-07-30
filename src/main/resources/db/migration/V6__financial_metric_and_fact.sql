@@ -1,0 +1,90 @@
+CREATE TABLE financial_metric (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    metric_code VARCHAR(64) NOT NULL,
+    canonical_name VARCHAR(128) NOT NULL,
+    statement_type VARCHAR(32) NOT NULL,
+    unit_type VARCHAR(32) NOT NULL,
+    formula_expression VARCHAR(512) DEFAULT NULL,
+    enabled BOOLEAN NOT NULL DEFAULT TRUE,
+    UNIQUE KEY uk_financial_metric_code (metric_code)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='稳定财务指标字典';
+
+CREATE TABLE financial_metric_alias (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    metric_code VARCHAR(64) NOT NULL,
+    alias_text VARCHAR(128) NOT NULL,
+    normalized_alias VARCHAR(128) NOT NULL,
+    UNIQUE KEY uk_metric_alias (normalized_alias),
+    INDEX idx_metric_alias_code (metric_code)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='财务指标别名';
+
+CREATE TABLE financial_fact (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    version_id BIGINT NOT NULL,
+    metric_code VARCHAR(64) NOT NULL,
+    period VARCHAR(32) NOT NULL,
+    scope VARCHAR(32) NOT NULL,
+    value DECIMAL(30,8) NOT NULL,
+    raw_value DECIMAL(30,8) NOT NULL,
+    raw_unit VARCHAR(128) DEFAULT NULL,
+    currency VARCHAR(16) NOT NULL,
+    scale DECIMAL(20,8) NOT NULL,
+    table_id BIGINT NOT NULL,
+    row_no INT NOT NULL,
+    column_no INT NOT NULL,
+    source_cell_id BIGINT NOT NULL,
+    page_no INT NOT NULL,
+    x0 DECIMAL(10,2) DEFAULT NULL, y0 DECIMAL(10,2) DEFAULT NULL,
+    x1 DECIMAL(10,2) DEFAULT NULL, y1 DECIMAL(10,2) DEFAULT NULL,
+    evidence_text LONGTEXT DEFAULT NULL,
+    confidence VARCHAR(16) NOT NULL,
+    review_status VARCHAR(16) NOT NULL,
+    extractor_version VARCHAR(64) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_fact_source (version_id, metric_code, period, scope, source_cell_id),
+    INDEX idx_fact_metric_period (metric_code, period),
+    INDEX idx_fact_version (version_id),
+    INDEX idx_fact_review (review_status),
+    CONSTRAINT fk_fact_version FOREIGN KEY (version_id) REFERENCES document_version(id) ON DELETE CASCADE,
+    CONSTRAINT fk_fact_table FOREIGN KEY (table_id) REFERENCES document_table(id) ON DELETE CASCADE,
+    CONSTRAINT fk_fact_cell FOREIGN KEY (source_cell_id) REFERENCES document_table_cell(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='可回溯财务事实';
+
+INSERT INTO financial_metric(metric_code, canonical_name, statement_type, unit_type) VALUES
+('OPERATING_REVENUE', '营业收入', 'INCOME_STATEMENT', 'CURRENCY'),
+('OPERATING_COST', '营业成本', 'INCOME_STATEMENT', 'CURRENCY'),
+('OPERATING_PROFIT', '营业利润', 'INCOME_STATEMENT', 'CURRENCY'),
+('TOTAL_PROFIT', '利润总额', 'INCOME_STATEMENT', 'CURRENCY'),
+('NET_PROFIT', '净利润', 'INCOME_STATEMENT', 'CURRENCY'),
+('NET_PROFIT_ATTRIBUTABLE', '归属于母公司股东的净利润', 'INCOME_STATEMENT', 'CURRENCY'),
+('TOTAL_ASSETS', '资产总额', 'BALANCE_SHEET', 'CURRENCY'),
+('TOTAL_LIABILITIES', '负债合计', 'BALANCE_SHEET', 'CURRENCY'),
+('TOTAL_EQUITY', '所有者权益合计', 'BALANCE_SHEET', 'CURRENCY'),
+('CASH_AND_CASH_EQUIVALENTS', '货币资金', 'BALANCE_SHEET', 'CURRENCY'),
+('OPERATING_CASH_FLOW', '经营活动产生的现金流量净额', 'CASH_FLOW', 'CURRENCY'),
+('INVESTING_CASH_FLOW', '投资活动产生的现金流量净额', 'CASH_FLOW', 'CURRENCY'),
+('FINANCING_CASH_FLOW', '筹资活动产生的现金流量净额', 'CASH_FLOW', 'CURRENCY'),
+('CASH_FLOW_NET_INCREASE', '现金及现金等价物净增加额', 'CASH_FLOW', 'CURRENCY'),
+('BASIC_EPS', '基本每股收益', 'INCOME_STATEMENT', 'PER_SHARE'),
+('DILUTED_EPS', '稀释每股收益', 'INCOME_STATEMENT', 'PER_SHARE'),
+('R_AND_D_EXPENSE', '研发费用', 'INCOME_STATEMENT', 'CURRENCY'),
+('SELLING_EXPENSE', '销售费用', 'INCOME_STATEMENT', 'CURRENCY'),
+('MANAGEMENT_EXPENSE', '管理费用', 'INCOME_STATEMENT', 'CURRENCY'),
+('FINANCIAL_EXPENSE', '财务费用', 'INCOME_STATEMENT', 'CURRENCY');
+
+INSERT INTO financial_metric_alias(metric_code, alias_text, normalized_alias) VALUES
+('OPERATING_REVENUE', '营业收入', '营业收入'), ('OPERATING_REVENUE', '营业总收入', '营业总收入'),
+('OPERATING_COST', '营业成本', '营业成本'), ('OPERATING_PROFIT', '营业利润', '营业利润'),
+('TOTAL_PROFIT', '利润总额', '利润总额'), ('NET_PROFIT', '净利润', '净利润'),
+('NET_PROFIT_ATTRIBUTABLE', '归属于母公司股东的净利润', '归属于母公司股东的净利润'), ('NET_PROFIT_ATTRIBUTABLE', '归母净利润', '归母净利润'),
+('TOTAL_ASSETS', '资产总额', '资产总额'), ('TOTAL_ASSETS', '资产合计', '资产合计'),
+('TOTAL_LIABILITIES', '负债合计', '负债合计'), ('TOTAL_EQUITY', '所有者权益合计', '所有者权益合计'),
+('CASH_AND_CASH_EQUIVALENTS', '货币资金', '货币资金'),
+('OPERATING_CASH_FLOW', '经营活动产生的现金流量净额', '经营活动产生的现金流量净额'),
+('INVESTING_CASH_FLOW', '投资活动产生的现金流量净额', '投资活动产生的现金流量净额'),
+('FINANCING_CASH_FLOW', '筹资活动产生的现金流量净额', '筹资活动产生的现金流量净额'),
+('CASH_FLOW_NET_INCREASE', '现金及现金等价物净增加额', '现金及现金等价物净增加额'),
+('BASIC_EPS', '基本每股收益', '基本每股收益'), ('DILUTED_EPS', '稀释每股收益', '稀释每股收益'),
+('R_AND_D_EXPENSE', '研发费用', '研发费用'), ('SELLING_EXPENSE', '销售费用', '销售费用'),
+('MANAGEMENT_EXPENSE', '管理费用', '管理费用'), ('FINANCIAL_EXPENSE', '财务费用', '财务费用');
